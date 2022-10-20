@@ -8,7 +8,7 @@ public class DetallePedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private int quantity;
-    private float subtotal;
+    private float unitPrice;
     private float discount;
 
 }

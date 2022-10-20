@@ -10,4 +10,5 @@ public class Producto {
 
     @Column(name = "name",length = 20)
     private String name;
+    private Integer stock;
 }
