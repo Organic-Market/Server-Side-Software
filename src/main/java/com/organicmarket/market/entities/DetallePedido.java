@@ -9,5 +9,6 @@ public class DetallePedido {
     private long id;
     private int quantity;
     private float subtotal;
+    private float discount;
 
 }

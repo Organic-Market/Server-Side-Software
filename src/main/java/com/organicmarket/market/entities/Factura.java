@@ -9,7 +9,6 @@ public class Factura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private float price;
-    private Date created;
 
 
 
