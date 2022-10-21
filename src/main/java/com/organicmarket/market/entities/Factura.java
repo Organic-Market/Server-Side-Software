@@ -11,6 +11,10 @@ public class Factura {
     @Column(name = "price", nullable = false)
     private float price;
 
+    @OneToOne
+    @JoinColumn(name = "detalle_id", nullable = false)
+    private DetallePedido detallepedido;
+
     public Factura() {
     }
 

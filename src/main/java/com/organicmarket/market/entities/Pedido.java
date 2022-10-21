@@ -13,6 +13,10 @@ public class Pedido {
     @Column(name = "date", nullable = false)
     private Date date;
 
+    @ManyToOne
+    @JoinColumn(name = "mayorista_id")
+    private Mayorista mayorista;
+
     public Pedido() {
     }
 

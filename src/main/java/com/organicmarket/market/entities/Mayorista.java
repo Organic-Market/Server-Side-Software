@@ -15,6 +15,10 @@ public class Mayorista {
     @Column(name ="address", length = 60, nullable = false)
     private String address;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     public Mayorista() {
     }
 

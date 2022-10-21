@@ -15,6 +15,14 @@ public class DetallePedido {
     @Column(name = "discount", nullable = false)
     private float discount;
 
+    @ManyToOne
+    @JoinColumn(name = "pedido_id", nullable = false)
+    private Pedido pedido;
+
+    @ManyToOne
+    @JoinColumn(name = "producto_id", nullable = false)
+    private Producto producto;
+
     public DetallePedido() {
     }
 

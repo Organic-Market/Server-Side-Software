@@ -1,5 +1,7 @@
 package com.organicmarket.market.entities;
 
+import com.organicmarket.market.repository.CategoriaProductoRepository;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,14 @@ public class Producto {
     private Double unit_price;
     @Column(name = "units_in_stock", nullable = false)
     private Short stock;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoriaProducto categoriaProducto;
+
+    @ManyToOne
+    @JoinColumn(name = "agricultor_id")
+    private Agricultor agricultor;
 
     public Producto() {
     }
