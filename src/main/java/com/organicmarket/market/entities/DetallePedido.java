@@ -2,14 +2,16 @@ package com.organicmarket.market.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 @Table(name ="DetallePedido")
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class DetallePedido {
     @EmbeddedId
     private ProductoPedidoId productoPedidoId;

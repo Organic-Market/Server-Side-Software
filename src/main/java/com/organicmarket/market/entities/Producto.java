@@ -4,6 +4,7 @@ import com.organicmarket.market.repository.CategoriaProductoRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
