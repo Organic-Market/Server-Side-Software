@@ -1,14 +1,21 @@
 package com.organicmarket.market.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name="pedidos")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "date", nullable = false)
     private Date date;
@@ -17,34 +24,5 @@ public class Pedido {
     @JoinColumn(name = "mayorista_id")
     private Mayorista mayorista;
 
-    public Pedido() {
-    }
 
-    public Pedido(Date date) {
-        this.date = date;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                "id=" + id +
-                ", date=" + date +
-                '}';
-    }
 }
