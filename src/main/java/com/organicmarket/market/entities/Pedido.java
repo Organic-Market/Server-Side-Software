@@ -60,4 +60,13 @@ public class Pedido {
 
     @ManyToOne
     private Mayorista mayorista;
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "id=" + id +
+                ", date=" + date +
+                ", mayorista=" + mayorista +
+                '}';
+    }
 }

@@ -89,5 +89,15 @@ public class Producto {
         this.detallePedidos.add(detallePedido);
     }
 
-
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", unit_price=" + unit_price +
+                ", stock=" + stock +
+                ", CategoriaProducto=" + CategoriaProducto +
+                ", Agricultor=" + Agricultor +
+                '}';
+    }
 }
