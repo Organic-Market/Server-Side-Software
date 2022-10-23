@@ -1,6 +1,7 @@
 package com.organicmarket.market.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class CategoriaProducto {
@@ -10,6 +11,9 @@ public class CategoriaProducto {
 
     @Column(name = "name",length = 20)
     private String name;
+
+    @OneToMany
+    private List<Producto> products;
 
     public CategoriaProducto() {
     }

@@ -1,12 +1,24 @@
 package com.organicmarket.market.entities;
 
+
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.*;
 
+
 @Entity
+@Table(name ="DetallePedido")
+@AssociationOverrides({
+        @AssociationOverride(name = "primaryKey.producto",
+                joinColumns = @JoinColumn(name = "producto_id")),
+        @AssociationOverride(name = "primaryKey.pedido",
+            joinColumns = @JoinColumn(name = "pedido_id"))
+})
 public class DetallePedido {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+
+    private ProductoPedidoId primaryKey = new ProductoPedidoId();
+
+
     @Column(name = "quantity", nullable = false)
     private Short quantity;
 
@@ -15,21 +27,31 @@ public class DetallePedido {
     @Column(name = "discount", nullable = false)
     private float discount;
 
-    public DetallePedido() {
+    @EmbeddedId
+    public ProductoPedidoId getPrimaryKey(){
+        return primaryKey;
     }
 
-    public DetallePedido(Short quantity, float unitPrice, float discount) {
-        this.quantity = quantity;
-        this.unitPrice = unitPrice;
-        this.discount = discount;
+    public void setPrimaryKey(ProductoPedidoId primaryKey){
+        this.primaryKey = primaryKey;
     }
 
-    public long getId() {
-        return id;
+    @Transient
+    public Pedido getPedido(){
+        return getPrimaryKey().getPedido();
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setPedido(Pedido pedido){
+        getPrimaryKey().setPedido(pedido);
+    }
+
+    @Transient
+    public Producto getProducto(){
+        return getPrimaryKey().getProducto();
+    }
+
+    public void setProducto(Producto producto){
+        getPrimaryKey().setProducto(producto);
     }
 
     public Short getQuantity() {
@@ -54,15 +76,5 @@ public class DetallePedido {
 
     public void setDiscount(float discount) {
         this.discount = discount;
-    }
-
-    @Override
-    public String toString() {
-        return "DetallePedido{" +
-                "id=" + id +
-                ", quantity=" + quantity +
-                ", unitPrice=" + unitPrice +
-                ", discount=" + discount +
-                '}';
     }
 }

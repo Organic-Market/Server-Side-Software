@@ -1,8 +1,10 @@
 package com.organicmarket.market.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "Mayorista")
 public class Mayorista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +16,13 @@ public class Mayorista {
     private String lastName;
     @Column(name ="address", length = 60, nullable = false)
     private String address;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @OneToMany
+    private List<Pedido> pedidos;
 
     public Mayorista() {
     }
