@@ -15,14 +15,14 @@ public class Producto {
     @Column(name = "name",length = 20)
     private String name;
     @Column(name = "unit_price")
-    private Enum unit_price;
+    private float unit_price;
     @Column(name = "units_in_stock", nullable = false)
-    private Short stock;
+    private float stock;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private CategoriaProducto CategoriaProducto;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Agricultor Agricultor;
 
     private Set<DetallePedido> detallePedidos = new HashSet<DetallePedido>();
@@ -30,7 +30,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String name, Enum unit_price, Short stock) {
+    public Producto(String name, float unit_price, float stock) {
         this.name = name;
         this.unit_price = unit_price;
         this.stock = stock;
@@ -59,19 +59,19 @@ public class Producto {
         this.name = name;
     }
 
-    public Enum getUnit_price() {
+    public float getUnit_price() {
         return unit_price;
     }
 
-    public void setUnit_price(Enum unit_price) {
+    public void setUnit_price(float unit_price) {
         this.unit_price = unit_price;
     }
 
-    public Short getStock() {
+    public float getStock() {
         return stock;
     }
 
-    public void setStock(Short stock) {
+    public void setStock(float stock) {
         this.stock = stock;
     }
 

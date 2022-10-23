@@ -1,4 +1,9 @@
 package com.organicmarket.market.repository;
 
-public interface PedidoRepository {
+import com.organicmarket.market.entities.Pedido;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PedidoRepository
+    extends JpaRepository<Pedido, Long> {
+
 }
