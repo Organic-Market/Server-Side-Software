@@ -58,6 +58,7 @@ public class ProductoController {
                 HttpStatus.OK);
     }
 
+
     @GetMapping("/products/agricultor/{id}")
     public ResponseEntity<List<Producto>> findByAllProductsAgricultorIdSQL(@PathVariable("id") Long id){
         List<Producto> products = productoRepository.findByAllProductsAgricultorIdSQL(id);
@@ -66,6 +67,5 @@ public class ProductoController {
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-
 
 }

@@ -31,6 +31,7 @@ public class MayoristaController {
 
         return new ResponseEntity<Mayorista>(mayoristas,HttpStatus.OK);
     }
+
     @GetMapping("/mayorista/agricultor/{id}")
     public ResponseEntity<List<Mayorista>> findByAllCompradoresAgricultorIdSQL(@PathVariable("id") Long id){
         List<Mayorista> mayoristas = mayoristaRepository.findByAllCompradoresAgricultorIdSQL(id);
@@ -39,4 +40,5 @@ public class MayoristaController {
         }
         return new ResponseEntity<>(mayoristas, HttpStatus.OK);
     }
+
 }
