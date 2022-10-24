@@ -12,4 +12,5 @@ public interface CategoriaProductoRepository
     List<CategoriaProducto> findByNameContaining(String name);
     @Query(value = "SELECT p FROM CategoriaProducto p WHERE p.name LIKE %:organic%")
     List<CategoriaProducto> findByNameLike(String organic);
+
 }

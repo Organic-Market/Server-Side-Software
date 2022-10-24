@@ -31,14 +31,14 @@ public class MayoristaController {
 
         return new ResponseEntity<Mayorista>(mayoristas,HttpStatus.OK);
     }
-    /*
-    @PostMapping("/mayorista")
-    public ResponseEntity<Mayorista> createMayorista(@RequestBody Mayorista mayorista){
-        Producto newMayorista = mayoristaRepository.save(
-                new Mayorista(mayorista.getName(),
-                        mayorista.getLastName(),
-                        mayorista.getAddress())
-        );
-        return new ResponseEntity<Mayorista>(newMayorista, HttpStatus.CREATED);
-    }*/
+
+    @GetMapping("/mayorista/agricultor/{id}")
+    public ResponseEntity<List<Mayorista>> findByAllCompradoresAgricultorIdSQL(@PathVariable("id") Long id){
+        List<Mayorista> mayoristas = mayoristaRepository.findByAllCompradoresAgricultorIdSQL(id);
+        if(mayoristas.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(mayoristas, HttpStatus.OK);
+    }
+
 }

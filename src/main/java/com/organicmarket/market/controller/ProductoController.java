@@ -59,6 +59,13 @@ public class ProductoController {
     }
 
 
-
+    @GetMapping("/products/agricultor/{id}")
+    public ResponseEntity<List<Producto>> findByAllProductsAgricultorIdSQL(@PathVariable("id") Long id){
+        List<Producto> products = productoRepository.findByAllProductsAgricultorIdSQL(id);
+        if(products.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 
 }

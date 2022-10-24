@@ -9,4 +9,5 @@ public interface PedidoRepository
     extends JpaRepository<Pedido, Long> {
     //VISUALIZAR ULTIMOS PRODUCTOS VENDIDOS
     List<Pedido>findbyStartDate(String date);
+
 }
