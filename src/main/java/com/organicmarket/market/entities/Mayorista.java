@@ -33,6 +33,7 @@ public class Mayorista {
         this.address = address;
     }
 
+
     public Long getId() {
         return id;
     }
