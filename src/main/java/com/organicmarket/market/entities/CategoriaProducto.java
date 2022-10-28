@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "CategoriaProducto")
+@Table(name = "categoria_producto")
 public class CategoriaProducto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,8 +13,6 @@ public class CategoriaProducto {
     @Column(name = "name",length = 20)
     private String name;
 
-    @OneToMany
-    private List<Producto> products;
 
     public CategoriaProducto() {
     }
@@ -39,11 +37,4 @@ public class CategoriaProducto {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "CategoriaProducto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

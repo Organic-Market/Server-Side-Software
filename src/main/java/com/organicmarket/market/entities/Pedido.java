@@ -19,6 +19,11 @@ public class Pedido {
     @Column(name = "date", nullable = false)
     private Date date;
 
+    @ManyToOne
+    @JoinColumn(name = "mayorista_id", nullable = false)
+    private Mayorista mayorista;
+
+    @OneToMany(mappedBy = "pedido", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, fetch = FetchType.LAZY)
     private Set<DetallePedido> detallePedidos = new HashSet<DetallePedido>();
 
     public Pedido() {
@@ -28,9 +33,6 @@ public class Pedido {
         this.date = date;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -47,11 +49,6 @@ public class Pedido {
         this.date = date;
     }
 
-    @OneToMany(mappedBy = "primaryKey.pedido",
-        cascade = CascadeType.ALL)
-    public Set<DetallePedido> getDetallePedidos() {
-        return detallePedidos;
-    }
 
     public void setDetallePedidos(Set<DetallePedido> pedidos) {
         this.detallePedidos = pedidos;
@@ -60,9 +57,6 @@ public class Pedido {
     public void addDetallePedido(DetallePedido detallePedido){
         this.detallePedidos.add(detallePedido);
     }
-
-    @ManyToOne
-    private Mayorista mayorista;
 
     @Override
     public String toString() {

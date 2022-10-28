@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProductoController {
 
-    @Autowired
+    /*@Autowired
     private ProductoRepository productoRepository;
 
     @GetMapping("/products")
@@ -65,7 +65,7 @@ public class ProductoController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
-    }
+    }*/
 
 
 }

@@ -21,8 +21,6 @@ public class Mayorista {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany
-    private List<Pedido> pedidos;
 
     public Mayorista() {
     }

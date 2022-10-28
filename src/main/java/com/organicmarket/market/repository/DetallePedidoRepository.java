@@ -1,9 +1,8 @@
 package com.organicmarket.market.repository;
 
 import com.organicmarket.market.entities.DetallePedido;
-import com.organicmarket.market.entities.ProductoPedidoId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DetallePedidoRepository
-        extends JpaRepository<DetallePedido, ProductoPedidoId> {
+        extends JpaRepository<DetallePedido, Long> {
 }

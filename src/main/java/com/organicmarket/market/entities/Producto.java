@@ -10,6 +10,8 @@ import javax.persistence.*;
 @Table(name="products")
 public class Producto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name",length = 20)
@@ -25,24 +27,6 @@ public class Producto {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Agricultor Agricultor;
 
-    private Set<DetallePedido> detallePedidos = new HashSet<DetallePedido>();
-
-    public Producto() {
-    }
-
-    public Producto(String name, float unit_price, float stock) {
-        this.name = name;
-        this.unit_price = unit_price;
-        this.stock = stock;
-    }
-
-    public void addProducto(DetallePedido pedido) {
-        this.detallePedidos.add(pedido);
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -75,29 +59,19 @@ public class Producto {
         this.stock = stock;
     }
 
-    @OneToMany(mappedBy = "primaryKey.producto",
-        cascade = CascadeType.ALL)
-    public Set<DetallePedido> getDetallePedidos() {
-        return detallePedidos;
+    public com.organicmarket.market.entities.CategoriaProducto getCategoriaProducto() {
+        return CategoriaProducto;
     }
 
-    public void setDetallePedidos(Set<DetallePedido> pedidos) {
-        this.detallePedidos = pedidos;
+    public void setCategoriaProducto(com.organicmarket.market.entities.CategoriaProducto categoriaProducto) {
+        CategoriaProducto = categoriaProducto;
     }
 
-    public void addDetallePedido(DetallePedido detallePedido){
-        this.detallePedidos.add(detallePedido);
+    public com.organicmarket.market.entities.Agricultor getAgricultor() {
+        return Agricultor;
     }
 
-    @Override
-    public String toString() {
-        return "Producto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", unit_price=" + unit_price +
-                ", stock=" + stock +
-                ", CategoriaProducto=" + CategoriaProducto +
-                ", Agricultor=" + Agricultor +
-                '}';
+    public void setAgricultor(com.organicmarket.market.entities.Agricultor agricultor) {
+        Agricultor = agricultor;
     }
 }
