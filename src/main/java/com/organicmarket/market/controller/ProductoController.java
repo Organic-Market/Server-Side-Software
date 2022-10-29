@@ -1,6 +1,5 @@
 package com.organicmarket.market.controller;
 
-import com.organicmarket.market.entities.Mayorista;
 import com.organicmarket.market.entities.Producto;
 import com.organicmarket.market.exception.ResourceNotFoundException;
 import com.organicmarket.market.repository.ProductoRepository;
@@ -13,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+
 public class ProductoController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class ProductoController {
     public ResponseEntity<List<Producto>> getAllMayorista(){
         List<Producto> productos = productoRepository.findAll();
 
-        return new ResponseEntity<List<Producto>>(productos,HttpStatus.OK);
+        return new ResponseEntity<List<Producto>>(productos, HttpStatus.OK);
     }
 
     @GetMapping("/products/{id}")
@@ -34,30 +34,28 @@ public class ProductoController {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<Producto> createProducto( @RequestBody Producto producto){
+    public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
         Producto newProducto = productoRepository.save(
                 new Producto(producto.getName(),
                         producto.getUnit_price(),
-                        producto.getStock())
+                        producto.getStock(),
+                        producto.getCategoriaProducto())
         );
-        return new ResponseEntity<Producto>(newProducto, HttpStatus.CREATED);
+        return new ResponseEntity<Producto>(newProducto,HttpStatus.CREATED);
     }
 
     @PutMapping("/products/{id}")
-    public ResponseEntity<Producto> createProducto(@PathVariable("id") Long id, @RequestBody Producto producto){
+    public ResponseEntity<Producto> createProducto(@PathVariable("id") Long id, @RequestBody Producto producto) {
         Producto productosUpdate = productoRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
-
         productosUpdate.setName(producto.getName());
-        productosUpdate.setStock(producto.getStock());
         productosUpdate.setUnit_price(producto.getUnit_price());
-
-
+        productosUpdate.setStock(producto.getStock());
+        productosUpdate.setCategoriaProducto(producto.getCategoriaProducto());
 
         return new ResponseEntity<Producto>(productoRepository.save(productosUpdate),
                 HttpStatus.OK);
     }
-
 
     @GetMapping("/products/agricultor/{id}")
     public ResponseEntity<List<Producto>> findByAllProductsAgricultorIdSQL(@PathVariable("id") Long id){

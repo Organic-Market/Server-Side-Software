@@ -1,24 +1,26 @@
 package com.organicmarket.market.entities;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
-import javax.persistence.*;
 
 @Entity
-@Table(name="pedidos")
+@Table(name = "pedidos")
 public class Pedido {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @Column(name = "date", nullable = false)
     private Date date;
 
+    @ManyToOne
+    @JoinColumn(name = "mayorista_id", nullable = false)
+    private Mayorista mayorista;
+
+    @OneToMany(mappedBy = "pedido", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, fetch = FetchType.LAZY)
     private Set<DetallePedido> detallePedidos = new HashSet<DetallePedido>();
 
     public Pedido() {
@@ -28,9 +30,6 @@ public class Pedido {
         this.date = date;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -47,11 +46,6 @@ public class Pedido {
         this.date = date;
     }
 
-    @OneToMany(mappedBy = "primaryKey.pedido",
-        cascade = CascadeType.ALL)
-    public Set<DetallePedido> getDetallePedidos() {
-        return detallePedidos;
-    }
 
     public void setDetallePedidos(Set<DetallePedido> pedidos) {
         this.detallePedidos = pedidos;
@@ -61,15 +55,5 @@ public class Pedido {
         this.detallePedidos.add(detallePedido);
     }
 
-    @ManyToOne
-    private Mayorista mayorista;
 
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                "id=" + id +
-                ", date=" + date +
-                ", mayorista=" + mayorista +
-                '}';
-    }
 }

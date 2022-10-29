@@ -1,48 +1,39 @@
 package com.organicmarket.market.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.*;
 
 @Entity
-@Table(name="products")
+@Table(name = "products")
 public class Producto {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",length = 20)
+    @Column(name = "name", length = 20)
     private String name;
-    @Column(name = "unit_price")
+    @Column(name = "unit_price", nullable = false)
     private float unit_price;
-    @Column(name = "units_in_stock", nullable = false)
-    private float stock;
+    @Column(name = "stock", nullable = false)
+    private int stock;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private CategoriaProducto CategoriaProducto;
+    @ManyToOne
+    @JoinColumn(name = "agricultor_id", nullable = false)
+    private Agricultor agricultor;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Agricultor Agricultor;
-
-    private Set<DetallePedido> detallePedidos = new HashSet<DetallePedido>();
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private CategoriaProducto categoriaProducto;
 
     public Producto() {
     }
 
-    public Producto(String name, float unit_price, float stock) {
+    public Producto(String name, float unit_price, int stock, CategoriaProducto categoriaProducto) {
         this.name = name;
         this.unit_price = unit_price;
         this.stock = stock;
+        this.categoriaProducto = categoriaProducto;
     }
 
-    public void addProducto(DetallePedido pedido) {
-        this.detallePedidos.add(pedido);
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -67,26 +58,20 @@ public class Producto {
         this.unit_price = unit_price;
     }
 
-    public float getStock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setStock(float stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 
-    @OneToMany(mappedBy = "primaryKey.producto",
-        cascade = CascadeType.ALL)
-    public Set<DetallePedido> getDetallePedidos() {
-        return detallePedidos;
+    public CategoriaProducto getCategoriaProducto() {
+        return categoriaProducto;
     }
 
-    public void setDetallePedidos(Set<DetallePedido> pedidos) {
-        this.detallePedidos = pedidos;
-    }
-
-    public void addDetallePedido(DetallePedido detallePedido){
-        this.detallePedidos.add(detallePedido);
+    public void setCategoriaProducto(CategoriaProducto categoriaProducto) {
+        this.categoriaProducto = categoriaProducto;
     }
 
     @Override
@@ -96,8 +81,8 @@ public class Producto {
                 ", name='" + name + '\'' +
                 ", unit_price=" + unit_price +
                 ", stock=" + stock +
-                ", CategoriaProducto=" + CategoriaProducto +
-                ", Agricultor=" + Agricultor +
+                ", categoriaProducto=" + categoriaProducto +
                 '}';
     }
 }
+

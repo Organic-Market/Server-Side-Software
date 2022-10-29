@@ -14,3 +14,5 @@ public interface CategoriaProductoRepository
     List<CategoriaProducto> findByNameLike(String organic);
 
 }
+
+

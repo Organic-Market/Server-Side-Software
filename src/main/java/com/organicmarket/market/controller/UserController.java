@@ -18,7 +18,7 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> users=userRepository.findAll();
-        return new ResponseEntity<List<User>>(users,HttpStatus.OK);
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {

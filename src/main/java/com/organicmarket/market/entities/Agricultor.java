@@ -1,10 +1,9 @@
 package com.organicmarket.market.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "Agricultor")
+@Table(name = "agricultor")
 public class Agricultor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,8 +11,8 @@ public class Agricultor {
 
     @Column(name = "name", length = 15, nullable = false)
     private String name;
-    @Column(name = "lastName", length = 30, nullable = false)
-    private String lastName;
+    @Column(name = "lastname", length = 30, nullable = false)
+    private String lastname;
     @Column(name ="address", length = 60, nullable = false)
     private String address;
 
@@ -21,16 +20,16 @@ public class Agricultor {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany
-    private List<Producto> products;
+
 
     public Agricultor() {
     }
 
-    public Agricultor(String name, String lastName, String address) {
+    public Agricultor(String name, String lastname, String address, User user) {
         this.name = name;
-        this.lastName = lastName;
+        this.lastname = lastname;
         this.address = address;
+        this.user = user;
     }
 
     public Long getId() {
@@ -49,12 +48,12 @@ public class Agricultor {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getAddress() {
@@ -65,13 +64,11 @@ public class Agricultor {
         this.address = address;
     }
 
-    @Override
-    public String toString() {
-        return "Agricultor{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
