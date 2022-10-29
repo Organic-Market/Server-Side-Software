@@ -1,57 +1,49 @@
 package com.organicmarket.market.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
 import javax.persistence.*;
 
-
 @Entity
-@Table(name ="DetallePedido")
-@AssociationOverrides({
-        @AssociationOverride(name = "primaryKey.producto",
-                joinColumns = @JoinColumn(name = "producto_id")),
-        @AssociationOverride(name = "primaryKey.pedido",
-            joinColumns = @JoinColumn(name = "pedido_id"))
-})
+@Table(name = "detalles_pedidos")
 public class DetallePedido {
-
-    private ProductoPedidoId primaryKey = new ProductoPedidoId();
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "quantity", nullable = false)
     private Short quantity;
-
-    @Column(name = "unit_price", nullable = false)
-    private float unitPrice;
+    @Column(name = "price", nullable = false)
+    private float price;
     @Column(name = "discount", nullable = false)
     private float discount;
 
-    @EmbeddedId
-    public ProductoPedidoId getPrimaryKey(){
-        return primaryKey;
+    @ManyToOne
+    @JoinColumn(name = "pedido_id", nullable = false)
+    @JsonIgnore
+    private Pedido pedido;
+
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
+
+    public DetallePedido() {
     }
 
-    public void setPrimaryKey(ProductoPedidoId primaryKey){
-        this.primaryKey = primaryKey;
+    public DetallePedido(Short quantity, float price, float discount, Pedido pedido, Producto producto) {
+        this.quantity = quantity;
+        this.price = price;
+        this.discount = discount;
+        this.pedido = pedido;
+        this.producto = producto;
     }
 
-    @Transient
-    public Pedido getPedido(){
-        return getPrimaryKey().getPedido();
+    public Long getId() {
+        return id;
     }
 
-    public void setPedido(Pedido pedido){
-        getPrimaryKey().setPedido(pedido);
-    }
-
-    @Transient
-    public Producto getProducto(){
-        return getPrimaryKey().getProducto();
-    }
-
-    public void setProducto(Producto producto){
-        getPrimaryKey().setProducto(producto);
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Short getQuantity() {
@@ -62,12 +54,12 @@ public class DetallePedido {
         this.quantity = quantity;
     }
 
-    public float getUnitPrice() {
-        return unitPrice;
+    public float getPrice() {
+        return price;
     }
 
-    public void setUnitPrice(float unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public float getDiscount() {
@@ -76,5 +68,21 @@ public class DetallePedido {
 
     public void setDiscount(float discount) {
         this.discount = discount;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 }
