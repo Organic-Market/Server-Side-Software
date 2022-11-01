@@ -1,5 +1,6 @@
 package com.organicmarket.market.controller;
 
+import com.organicmarket.market.entities.CategoriaProducto;
 import com.organicmarket.market.entities.Producto;
 import com.organicmarket.market.exception.ResourceNotFoundException;
 import com.organicmarket.market.repository.ProductoRepository;
@@ -60,6 +61,15 @@ public class ProductoController {
     @GetMapping("/products/agricultor/{id}")
     public ResponseEntity<List<Producto>> findByAllProductsAgricultorIdSQL(@PathVariable("id") Long id){
         List<Producto> products = productoRepository.findByAllProductsAgricultorIdSQL(id);
+        if(products.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @GetMapping("/products/nombre/{name}")
+    public ResponseEntity<List<Producto>> findProductsByName(@PathVariable("name") String name){
+        List<Producto> products = productoRepository.findProductsByName(name);
         if(products.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

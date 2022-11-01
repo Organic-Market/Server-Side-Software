@@ -1,6 +1,7 @@
 package com.organicmarket.market.controller;
 
 import com.organicmarket.market.entities.CategoriaProducto;
+import com.organicmarket.market.entities.Producto;
 import com.organicmarket.market.repository.CategoriaProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,14 @@ public class CategoriaProductoController {
                         new CategoriaProducto(categoriaProducto.getName())
                 );
         return new ResponseEntity<CategoriaProducto>(newCategoriaProducto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/categoria/{name}")
+    public ResponseEntity<List<CategoriaProducto>> findByNameLikeSQL(@PathVariable("name") String name){
+        List<CategoriaProducto> categoriaProductos=categoriaProductoRepository.findByNameLikeSQL(name);
+        if(categoriaProductos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(categoriaProductos, HttpStatus.OK);
     }
 }

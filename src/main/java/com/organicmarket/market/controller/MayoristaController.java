@@ -1,15 +1,13 @@
 package com.organicmarket.market.controller;
 
+import com.organicmarket.market.entities.Agricultor;
 import com.organicmarket.market.entities.Mayorista;
 import com.organicmarket.market.exception.ResourceNotFoundException;
 import com.organicmarket.market.repository.MayoristaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,5 +38,18 @@ public class MayoristaController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(mayoristas, HttpStatus.OK);
+    }
+
+    //Actualizar informacion de usuario (mayorista)
+    @PutMapping("/mayorista/{id}")
+    public ResponseEntity<Mayorista> createMayorista(@PathVariable("id") Long id, @RequestBody Mayorista mayorista) {
+        Mayorista mayoristaUpdate = mayoristaRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
+        mayoristaUpdate.setName(mayorista.getName());
+        mayoristaUpdate.setLastname(mayorista.getLastname());
+        mayoristaUpdate.setAddress(mayorista.getAddress());
+
+        return new ResponseEntity<Mayorista>(mayoristaRepository.save(mayoristaUpdate),
+                HttpStatus.OK);
     }
 }
