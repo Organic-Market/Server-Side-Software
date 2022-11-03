@@ -1,6 +1,8 @@
 package com.organicmarket.market.controller;
 
+import com.organicmarket.market.entities.Agricultor;
 import com.organicmarket.market.entities.DetallePedido;
+import com.organicmarket.market.exception.ResourceNotFoundException;
 import com.organicmarket.market.repository.DetallePedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,5 +34,17 @@ public class DetallePedidoController {
                                 detalle_pedido.getProducto())
                 );
         return new ResponseEntity<DetallePedido>(newdetallePedido, HttpStatus.CREATED);
+    }
+    @PutMapping("/detalle_pedido/{id}")
+    public ResponseEntity<DetallePedido> updateDetallePedido(@PathVariable("id") Long id, @RequestBody DetallePedido detalle_pedido) {
+        DetallePedido updateDetallePedido = detallePedidoRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
+        updateDetallePedido.setPrice(detalle_pedido.getPrice());
+        updateDetallePedido.setDiscount(detalle_pedido.getDiscount());
+        updateDetallePedido.setPedido(detalle_pedido.getPedido());
+        updateDetallePedido.setProducto(detalle_pedido.getProducto());
+
+        return new ResponseEntity<DetallePedido>(detallePedidoRepository.save(updateDetallePedido),
+                HttpStatus.OK);
     }
 }
