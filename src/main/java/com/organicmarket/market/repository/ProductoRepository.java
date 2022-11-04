@@ -12,7 +12,7 @@ public interface ProductoRepository
         extends JpaRepository<Producto, Long> {
 
     //SQL
-    @Query(value = "select a.id, a.name, p.name, p.stock, p.unit_price from agricultor a join products p on a.id = p.agricultor_id where a.id=?1", nativeQuery = true)
+    @Query(value = "select a.id, a.name, p.name, p.stock, p.unit_price from products p join agricultor a on a.id = p.agricultor_id where a.id=?1", nativeQuery = true)
     List<Producto> findByAllProductsAgricultorIdSQL(Long id);
 
     //JPQL

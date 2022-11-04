@@ -27,11 +27,12 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String name, float unit_price, int stock, CategoriaProducto categoriaProducto) {
+    public Producto(String name, float unit_price, int stock, Agricultor agricultor, CategoriaProducto categoriaProducto) {
         this.name = name;
         this.unit_price = unit_price;
         this.stock = stock;
         this.categoriaProducto = categoriaProducto;
+        this.agricultor = agricultor;
     }
 
     public Long getId() {
@@ -74,15 +75,12 @@ public class Producto {
         this.categoriaProducto = categoriaProducto;
     }
 
-    @Override
-    public String toString() {
-        return "Producto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", unit_price=" + unit_price +
-                ", stock=" + stock +
-                ", categoriaProducto=" + categoriaProducto +
-                '}';
+    public Agricultor getAgricultor() {
+        return agricultor;
+    }
+
+    public void setAgricultor(Agricultor agricultor) {
+        this.agricultor = agricultor;
     }
 }
 
