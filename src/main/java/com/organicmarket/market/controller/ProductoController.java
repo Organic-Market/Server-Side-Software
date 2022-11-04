@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -34,6 +35,7 @@ public class ProductoController {
         return new ResponseEntity<Producto>(productos,HttpStatus.OK);
     }
 
+    @Transactional
     @PostMapping("/products")
     public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
         Producto newProducto = productoRepository.save(
@@ -45,6 +47,7 @@ public class ProductoController {
         return new ResponseEntity<Producto>(newProducto,HttpStatus.CREATED);
     }
 
+    @Transactional
     @PutMapping("/products/{id}")
     public ResponseEntity<Producto> createProducto(@PathVariable("id") Long id, @RequestBody Producto producto) {
         Producto productosUpdate = productoRepository.findById(id)
@@ -74,6 +77,13 @@ public class ProductoController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @Transactional
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") Long id){
+        productoRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

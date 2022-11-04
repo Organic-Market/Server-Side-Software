@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -23,6 +24,7 @@ public class DetallePedidoController {
         return new ResponseEntity<List<DetallePedido>>(detallePedido, HttpStatus.OK);
     }
 
+    @Transactional
     @PostMapping("/detalle_pedido")
     public ResponseEntity<DetallePedido> createDetallePedido(@RequestBody DetallePedido detalle_pedido){
         DetallePedido newdetallePedido =
@@ -35,6 +37,7 @@ public class DetallePedidoController {
                 );
         return new ResponseEntity<DetallePedido>(newdetallePedido, HttpStatus.CREATED);
     }
+    @Transactional
     @PutMapping("/detalle_pedido/{id}")
     public ResponseEntity<DetallePedido> updateDetallePedido(@PathVariable("id") Long id, @RequestBody DetallePedido detalle_pedido) {
         DetallePedido updateDetallePedido = detallePedidoRepository.findById(id)
@@ -46,5 +49,11 @@ public class DetallePedidoController {
 
         return new ResponseEntity<DetallePedido>(detallePedidoRepository.save(updateDetallePedido),
                 HttpStatus.OK);
+    }
+    @Transactional
+    @DeleteMapping("/detalle_pedido/{id}")
+    public ResponseEntity<HttpStatus> deleteDetallePedido(@PathVariable("id") Long id){
+        detallePedidoRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

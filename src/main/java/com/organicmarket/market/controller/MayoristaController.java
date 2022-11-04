@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -41,6 +42,7 @@ public class MayoristaController {
     }
 
     //Actualizar informacion de usuario (mayorista)
+    @Transactional
     @PutMapping("/mayorista/{id}")
     public ResponseEntity<Mayorista> createMayorista(@PathVariable("id") Long id, @RequestBody Mayorista mayorista) {
         Mayorista mayoristaUpdate = mayoristaRepository.findById(id)

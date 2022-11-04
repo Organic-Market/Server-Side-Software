@@ -1,13 +1,13 @@
 package com.organicmarket.market.controller;
 
 import com.organicmarket.market.entities.CategoriaProducto;
-import com.organicmarket.market.entities.Producto;
 import com.organicmarket.market.repository.CategoriaProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -21,6 +21,7 @@ public class CategoriaProductoController {
         List<CategoriaProducto> categoriaProductos=categoriaProductoRepository.findAll();
         return new ResponseEntity<List<CategoriaProducto>>(categoriaProductos, HttpStatus.OK);
     }
+    @Transactional
     @PostMapping("/categoria")
     public ResponseEntity<CategoriaProducto> createCategoriaProducto(@RequestBody CategoriaProducto categoriaProducto) {
         CategoriaProducto newCategoriaProducto =

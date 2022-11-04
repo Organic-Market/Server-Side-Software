@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -22,6 +23,7 @@ public class AgricultorController {
         List<Agricultor> agricultor=agricultorRepository.findAll();
         return new ResponseEntity<List<Agricultor>>(agricultor, HttpStatus.OK);
     }
+    @Transactional
     @PostMapping("/agricultor")
     public ResponseEntity<Agricultor> createUser(@RequestBody Agricultor agricultor) {
         Agricultor newAgricultor=
@@ -35,6 +37,7 @@ public class AgricultorController {
     }
 
     //Actualizar informacion de usuario (agricultor)
+    @Transactional
     @PutMapping("/agricultor/{id}")
     public ResponseEntity<Agricultor> createAgricultor(@PathVariable("id") Long id, @RequestBody Agricultor agricultor) {
         Agricultor agricultorUpdate = agricultorRepository.findById(id)
