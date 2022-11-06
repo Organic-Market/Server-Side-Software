@@ -1,19 +1,16 @@
 package com.organicmarket.market.entities;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
-import javax.persistence.*;
 
 @Entity
-@Table(name="pedidos")
+@Table(name = "pedidos")
 public class Pedido {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @Column(name = "date", nullable = false)
@@ -29,8 +26,9 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Date date) {
+    public Pedido(Date date, Mayorista mayorista) {
         this.date = date;
+        this.mayorista = mayorista;
     }
 
     public Long getId() {
@@ -45,8 +43,8 @@ public class Pedido {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public Mayorista getMayorista() {
+        return mayorista;
     }
 
 

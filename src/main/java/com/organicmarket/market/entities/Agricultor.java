@@ -4,7 +4,7 @@ package com.organicmarket.market.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Agricultor")
+@Table(name = "agricultor")
 public class Agricultor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,6 @@ public class Agricultor {
     private String name;
     @Column(name = "lastname", length = 30, nullable = false)
     private String lastname;
-
     @Column(name ="address", length = 60, nullable = false)
     private String address;
 
@@ -93,5 +92,9 @@ public class Agricultor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

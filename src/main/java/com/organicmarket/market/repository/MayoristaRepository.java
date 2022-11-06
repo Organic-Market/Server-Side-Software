@@ -2,7 +2,6 @@ package com.organicmarket.market.repository;
 
 import com.organicmarket.market.entities.Agricultor;
 import com.organicmarket.market.entities.Mayorista;
-import com.organicmarket.market.entities.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

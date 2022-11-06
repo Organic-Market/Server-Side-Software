@@ -9,11 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api")
+
 public class ProductoController {
 
     @Autowired
@@ -23,7 +25,7 @@ public class ProductoController {
     public ResponseEntity<List<Producto>> getAllMayorista(){
         List<Producto> productos = productoRepository.findAll();
 
-        return new ResponseEntity<List<Producto>>(productos,HttpStatus.OK);
+        return new ResponseEntity<List<Producto>>(productos, HttpStatus.OK);
     }
 
     @GetMapping("/products/{id}")
@@ -34,6 +36,7 @@ public class ProductoController {
         return new ResponseEntity<Producto>(productos,HttpStatus.OK);
     }
 
+    @Transactional
     @PostMapping("/products")
     public ResponseEntity<Producto> createProducto( @RequestBody Producto producto) {
         Producto newProducto = productoRepository.save(
@@ -43,7 +46,7 @@ public class ProductoController {
                         producto.getAgricultor(),
                         producto.getCategoriaProducto())
         );
-        return new ResponseEntity<Producto>(newProducto, HttpStatus.CREATED);
+        return new ResponseEntity<Producto>(newProducto,HttpStatus.CREATED);
     }
 
     /*public ResponseEntity<Producto> createProducto(@RequestBody CreateProducto createProducto) {
@@ -62,12 +65,10 @@ public class ProductoController {
     }*/
 
     @PutMapping("/products/{id}")
-    public ResponseEntity<Producto> createProducto(@PathVariable("id") Long id, @RequestBody Producto producto){
+    public ResponseEntity<Producto> createProducto(@PathVariable("id") Long id, @RequestBody Producto producto) {
         Producto productosUpdate = productoRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
-
         productosUpdate.setName(producto.getName());
-        productosUpdate.setStock(producto.getStock());
         productosUpdate.setUnit_price(producto.getUnit_price());
 
         return new ResponseEntity<Producto>(productoRepository.save(productosUpdate),
@@ -88,6 +89,5 @@ public class ProductoController {
         productoRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
 }

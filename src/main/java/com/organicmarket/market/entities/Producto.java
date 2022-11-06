@@ -5,19 +5,18 @@ import javax.persistence.CascadeType;
 import javax.persistence.*;
 
 @Entity
-@Table(name="products")
+@Table(name = "products")
 public class Producto {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",length = 20)
+    @Column(name = "name", length = 20)
     private String name;
-    @Column(name = "unit_price")
+    @Column(name = "unit_price", nullable = false)
     private float unit_price;
-    @Column(name = "units_in_stock", nullable = false)
-    private float stock;
+    @Column(name = "stock", nullable = false)
+    private int stock;
 
     @ManyToOne
     @JoinColumn(name = "agricultor_id", nullable = true)
@@ -62,11 +61,11 @@ public class Producto {
         this.unit_price = unit_price;
     }
 
-    public float getStock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setStock(float stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 
@@ -86,3 +85,4 @@ public class Producto {
         this.categoriaProducto = categoriaProducto;
     }
 }
+

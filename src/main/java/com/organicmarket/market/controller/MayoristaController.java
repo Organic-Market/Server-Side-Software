@@ -1,7 +1,7 @@
 package com.organicmarket.market.controller;
 
+import com.organicmarket.market.entities.Agricultor;
 import com.organicmarket.market.entities.Mayorista;
-import com.organicmarket.market.entities.Producto;
 import com.organicmarket.market.exception.ResourceNotFoundException;
 import com.organicmarket.market.repository.MayoristaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class MayoristaController {
     public ResponseEntity<List<Mayorista>> getAllMayorista(){
         List<Mayorista> mayoristas = mayoristaRepository.findAll();
 
-        return new ResponseEntity<List<Mayorista>>(mayoristas,HttpStatus.OK);
+        return new ResponseEntity<List<Mayorista>>(mayoristas, HttpStatus.OK);
     }
     @GetMapping("/mayorista/{id}")
     public ResponseEntity<Mayorista> getMayoristaById(@PathVariable("id") Long id) {

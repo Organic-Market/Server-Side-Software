@@ -1,12 +1,12 @@
 package com.organicmarket.market.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.*;
-
 
 @Entity
 @Table(name ="detalles_pedidos")
@@ -27,9 +27,8 @@ public class DetallePedido {
 
     @Column(name = "quantity", nullable = false)
     private Short quantity;
-
-    @Column(name = "unit_price", nullable = false)
-    private float unitPrice;
+    @Column(name = "price", nullable = false)
+    private float price;
     @Column(name = "discount", nullable = false)
     private float discount;
 
@@ -58,12 +57,12 @@ public class DetallePedido {
         this.quantity = quantity;
     }
 
-    public float getUnitPrice() {
-        return unitPrice;
+    public float getPrice() {
+        return price;
     }
 
-    public void setUnitPrice(float unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public float getDiscount() {

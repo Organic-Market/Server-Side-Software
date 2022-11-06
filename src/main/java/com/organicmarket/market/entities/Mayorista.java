@@ -3,7 +3,7 @@ package com.organicmarket.market.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Mayorista")
+@Table(name = "mayorista")
 public class Mayorista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -93,5 +93,9 @@ public class Mayorista {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
