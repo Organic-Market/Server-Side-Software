@@ -94,7 +94,4 @@ public class Agricultor {
         this.email = email;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

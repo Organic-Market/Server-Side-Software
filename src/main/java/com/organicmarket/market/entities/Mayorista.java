@@ -95,7 +95,4 @@ public class Mayorista {
         this.email = email;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

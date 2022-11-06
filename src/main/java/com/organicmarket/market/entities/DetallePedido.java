@@ -2,28 +2,14 @@ package com.organicmarket.market.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
 import javax.persistence.*;
 
 @Entity
-@Table(name ="detalles_pedidos")
-/*@AssociationOverrides({
-        @AssociationOverride(name = "primaryKey.producto",
-                joinColumns = @JoinColumn(name = "producto_id")),
-        @AssociationOverride(name = "primaryKey.pedido",
-            joinColumns = @JoinColumn(name = "pedido_id"))
-})*/
+@Table(name = "detalles_pedidos")
 public class DetallePedido {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    //private ProductoPedidoId primaryKey = new ProductoPedidoId();
-
 
     @Column(name = "quantity", nullable = false)
     private Short quantity;
@@ -40,6 +26,17 @@ public class DetallePedido {
     @ManyToOne
     @JoinColumn(name = "producto_id")
     private Producto producto;
+
+    public DetallePedido() {
+    }
+
+    public DetallePedido(Short quantity, float price, float discount, Pedido pedido, Producto producto) {
+        this.quantity = quantity;
+        this.price = price;
+        this.discount = discount;
+        this.pedido = pedido;
+        this.producto = producto;
+    }
 
     public Long getId() {
         return id;
