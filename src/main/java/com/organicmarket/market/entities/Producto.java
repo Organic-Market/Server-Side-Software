@@ -29,7 +29,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String name, float unit_price, float stock, Agricultor agricultor, CategoriaProducto categoriaProducto) {
+    public Producto(String name, float unit_price, int stock, Agricultor agricultor, CategoriaProducto categoriaProducto) {
         this.name = name;
         this.unit_price = unit_price;
         this.stock = stock;

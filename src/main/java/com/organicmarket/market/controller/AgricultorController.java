@@ -1,7 +1,6 @@
 package com.organicmarket.market.controller;
 
 import com.organicmarket.market.entities.Agricultor;
-import com.organicmarket.market.entities.Producto;
 import com.organicmarket.market.exception.ResourceNotFoundException;
 import com.organicmarket.market.repository.AgricultorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.organicmarket.market.entities.Agricultor;
-import com.organicmarket.market.exception.ResourceNotFoundException;
-import com.organicmarket.market.repository.AgricultorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -38,6 +30,7 @@ public class AgricultorController {
         Agricultor agricultor=agricultorRepository.findByUsername(username);
         return new ResponseEntity<>(agricultor, HttpStatus.OK);
     }
+
     @Transactional
     @PostMapping("/agricultor")
     public ResponseEntity<Agricultor> createUser(@RequestBody Agricultor agricultor) {
