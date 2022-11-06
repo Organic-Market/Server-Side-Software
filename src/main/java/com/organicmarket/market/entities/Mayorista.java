@@ -1,7 +1,6 @@
 package com.organicmarket.market.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "Mayorista")
@@ -12,15 +11,10 @@ public class Mayorista {
 
     @Column(name = "name", length = 15, nullable = false)
     private String name;
-<<<<<<< Updated upstream
-    @Column(name = "lastName", length = 30, nullable = false)
-    private String lastName;
-=======
 
     @Column(name = "lastname", length = 30, nullable = false)
     private String lastname;
 
->>>>>>> Stashed changes
     @Column(name ="address", length = 60, nullable = false)
     private String address;
 
@@ -30,12 +24,6 @@ public class Mayorista {
     @Column(name = "password", nullable = false)
     private String password;
 
-<<<<<<< Updated upstream
-    public Mayorista() {
-    }
-
-    public Mayorista(String name, String lastName, String address) {
-=======
     @Column(name = "email", nullable = false)
     private String email;
 
@@ -43,18 +31,13 @@ public class Mayorista {
     }
 
     public Mayorista(String name, String lastname, String address, String username, String password, String email) {
->>>>>>> Stashed changes
         this.name = name;
-        this.lastName = lastName;
+        this.lastname = lastname;
         this.address = address;
-<<<<<<< Updated upstream
-=======
         this.username = username;
         this.password = password;
         this.email = email;
->>>>>>> Stashed changes
     }
-
 
     public Long getId() {
         return id;
@@ -72,12 +55,12 @@ public class Mayorista {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getAddress() {
@@ -88,16 +71,6 @@ public class Mayorista {
         this.address = address;
     }
 
-<<<<<<< Updated upstream
-    @Override
-    public String toString() {
-        return "Mayorista{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-=======
     public String getUsername() {
         return username;
     }
@@ -120,6 +93,5 @@ public class Mayorista {
 
     public void setEmail(String email) {
         this.email = email;
->>>>>>> Stashed changes
     }
 }

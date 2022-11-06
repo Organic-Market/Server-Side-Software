@@ -3,6 +3,7 @@ package com.organicmarket.market.repository;
 import com.organicmarket.market.entities.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -11,9 +12,6 @@ public interface ProductoRepository
 
     @Query(value = "select a.id, a.name, p.name, p.stock, p.unit_price from agricultor a join agricultor_products ap on a.id = ap.agricultor_id join products p on ap.products_id = p.id where a.id =?1", nativeQuery = true)
     List<Producto> findByAllProductsAgricultorIdSQL(Long id);
-<<<<<<< Updated upstream
-=======
-
     //JPQL
     @Query(value = "SELECT a.id, a.name, p.name, p.stock, p.unit_price FROM Producto p JOIN p.agricultor a ON a.id = p.agricultor.id WHERE a.id=?1")
     List<Producto> findByAllProductsAgricultorIdJPQL(Long id);
@@ -21,5 +19,5 @@ public interface ProductoRepository
     @Query(value = "SELECT * FROM products WHERE name like %:name%", nativeQuery = true)
     List<Producto> findProductsByName(@Param("name") String name);
 
->>>>>>> Stashed changes
+
 }

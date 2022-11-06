@@ -1,7 +1,5 @@
 package com.organicmarket.market.DTO;
 
-import lombok.Data;
-
 public class CreateProducto {
 
     private String name;

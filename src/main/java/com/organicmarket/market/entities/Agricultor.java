@@ -1,9 +1,7 @@
 package com.organicmarket.market.entities;
 
-import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "Agricultor")
@@ -14,51 +12,31 @@ public class Agricultor {
 
     @Column(name = "name", length = 15, nullable = false)
     private String name;
-<<<<<<< Updated upstream
-    @Column(name = "lastName", length = 30, nullable = false)
-    private String lastName;
-=======
-
     @Column(name = "lastname", length = 30, nullable = false)
     private String lastname;
 
->>>>>>> Stashed changes
     @Column(name ="address", length = 60, nullable = false)
     private String address;
 
     @Column(name = "username", nullable = false)
     private String username;
 
-<<<<<<< Updated upstream
-    @OneToMany
-    private List<Producto> products;
-=======
     @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "email", nullable = false)
     private String email;
->>>>>>> Stashed changes
 
+    public Agricultor() {
+    }
 
-<<<<<<< Updated upstream
-    public Agricultor(String name, String lastName, String address) {
-=======
     public Agricultor(String name, String lastname, String address, String username, String password, String email) {
->>>>>>> Stashed changes
         this.name = name;
-        this.lastName = lastName;
+        this.lastname = lastname;
         this.address = address;
-<<<<<<< Updated upstream
-=======
         this.username = username;
         this.password = password;
         this.email = email;
-    }
-
-    public Agricultor() {
-
->>>>>>> Stashed changes
     }
 
     public Long getId() {
@@ -77,12 +55,12 @@ public class Agricultor {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getAddress() {
@@ -93,16 +71,6 @@ public class Agricultor {
         this.address = address;
     }
 
-<<<<<<< Updated upstream
-    @Override
-    public String toString() {
-        return "Agricultor{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-=======
     public String getUsername() {
         return username;
     }
@@ -125,6 +93,5 @@ public class Agricultor {
 
     public void setEmail(String email) {
         this.email = email;
->>>>>>> Stashed changes
     }
 }

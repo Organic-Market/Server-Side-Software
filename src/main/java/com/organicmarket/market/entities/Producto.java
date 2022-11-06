@@ -1,11 +1,8 @@
 package com.organicmarket.market.entities;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.*;
-import java.util.Optional;
 
 @Entity
 @Table(name="products")
@@ -22,28 +19,23 @@ public class Producto {
     @Column(name = "units_in_stock", nullable = false)
     private float stock;
 
-<<<<<<< Updated upstream
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private CategoriaProducto CategoriaProducto;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Agricultor Agricultor;
-=======
     @ManyToOne
-    @JoinColumn(name = "categoria_id", nullable = false)
+    @JoinColumn(name = "agricultor_id", nullable = true)
+    private Agricultor agricultor;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = true)
     private CategoriaProducto categoriaProducto;
 
-    public Producto(String name, float unit_price, int stock, Agricultor agricultor, CategoriaProducto categoriaProducto) {
+    public Producto() {
+    }
+
+    public Producto(String name, float unit_price, float stock, Agricultor agricultor, CategoriaProducto categoriaProducto) {
         this.name = name;
         this.unit_price = unit_price;
         this.stock = stock;
-        this.categoriaProducto = categoriaProducto;
         this.agricultor = agricultor;
-    }
->>>>>>> Stashed changes
-
-    public Producto() {
-        
+        this.categoriaProducto = categoriaProducto;
     }
 
     public Long getId() {
@@ -78,19 +70,19 @@ public class Producto {
         this.stock = stock;
     }
 
-    public com.organicmarket.market.entities.CategoriaProducto getCategoriaProducto() {
-        return CategoriaProducto;
+    public Agricultor getAgricultor() {
+        return agricultor;
     }
 
-    public void setCategoriaProducto(com.organicmarket.market.entities.CategoriaProducto categoriaProducto) {
-        CategoriaProducto = categoriaProducto;
+    public void setAgricultor(Agricultor agricultor) {
+        this.agricultor = agricultor;
     }
 
-    public com.organicmarket.market.entities.Agricultor getAgricultor() {
-        return Agricultor;
+    public CategoriaProducto getCategoriaProducto() {
+        return categoriaProducto;
     }
 
-    public void setAgricultor(com.organicmarket.market.entities.Agricultor agricultor) {
-        Agricultor = agricultor;
+    public void setCategoriaProducto(CategoriaProducto categoriaProducto) {
+        this.categoriaProducto = categoriaProducto;
     }
 }
