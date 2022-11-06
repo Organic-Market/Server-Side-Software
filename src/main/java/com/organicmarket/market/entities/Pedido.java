@@ -47,13 +47,6 @@ public class Pedido {
         return mayorista;
     }
 
-    public void setMayorista(Mayorista mayorista) {
-        this.mayorista = mayorista;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public void setDetallePedidos(Set<DetallePedido> pedidos) {
         this.detallePedidos = pedidos;
@@ -63,4 +56,12 @@ public class Pedido {
         this.detallePedidos.add(detallePedido);
     }
 
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "id=" + id +
+                ", date=" + date +
+                ", mayorista=" + mayorista +
+                '}';
+    }
 }

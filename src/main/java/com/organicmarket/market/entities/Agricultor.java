@@ -1,5 +1,6 @@
 package com.organicmarket.market.entities;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -16,20 +17,25 @@ public class Agricultor {
     @Column(name ="address", length = 60, nullable = false)
     private String address;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "username", nullable = false)
+    private String username;
 
+    @Column(name = "password", nullable = false)
+    private String password;
 
+    @Column(name = "email", nullable = false)
+    private String email;
 
     public Agricultor() {
     }
 
-    public Agricultor(String name, String lastname, String address, User user) {
+    public Agricultor(String name, String lastname, String address, String username, String password, String email) {
         this.name = name;
         this.lastname = lastname;
         this.address = address;
-        this.user = user;
+        this.username = username;
+        this.password = password;
+        this.email = email;
     }
 
     public Long getId() {
@@ -64,8 +70,28 @@ public class Agricultor {
         this.address = address;
     }
 
-    public User getUser() {
-        return user;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setUser(User user) {

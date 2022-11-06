@@ -1,5 +1,7 @@
 package com.organicmarket.market.entities;
 
+
+import javax.persistence.CascadeType;
 import javax.persistence.*;
 
 @Entity
@@ -17,22 +19,22 @@ public class Producto {
     private int stock;
 
     @ManyToOne
-    @JoinColumn(name = "agricultor_id", nullable = false)
+    @JoinColumn(name = "agricultor_id", nullable = true)
     private Agricultor agricultor;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id", nullable = false)
+    @JoinColumn(name = "categoria_id", nullable = true)
     private CategoriaProducto categoriaProducto;
 
     public Producto() {
     }
 
-    public Producto(String name, float unit_price, int stock, Agricultor agricultor, CategoriaProducto categoriaProducto) {
+    public Producto(String name, float unit_price, float stock, Agricultor agricultor, CategoriaProducto categoriaProducto) {
         this.name = name;
         this.unit_price = unit_price;
         this.stock = stock;
-        this.categoriaProducto = categoriaProducto;
         this.agricultor = agricultor;
+        this.categoriaProducto = categoriaProducto;
     }
 
     public Long getId() {
@@ -67,20 +69,20 @@ public class Producto {
         this.stock = stock;
     }
 
-    public CategoriaProducto getCategoriaProducto() {
-        return categoriaProducto;
-    }
-
-    public void setCategoriaProducto(CategoriaProducto categoriaProducto) {
-        this.categoriaProducto = categoriaProducto;
-    }
-
     public Agricultor getAgricultor() {
         return agricultor;
     }
 
     public void setAgricultor(Agricultor agricultor) {
         this.agricultor = agricultor;
+    }
+
+    public CategoriaProducto getCategoriaProducto() {
+        return categoriaProducto;
+    }
+
+    public void setCategoriaProducto(CategoriaProducto categoriaProducto) {
+        this.categoriaProducto = categoriaProducto;
     }
 }
 

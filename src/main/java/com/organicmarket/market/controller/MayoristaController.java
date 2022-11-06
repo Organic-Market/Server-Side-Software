@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api")
 public class MayoristaController {
@@ -33,6 +33,13 @@ public class MayoristaController {
 
         return new ResponseEntity<Mayorista>(mayoristas,HttpStatus.OK);
     }
+
+    @GetMapping("/mayorista/{username}")
+    public ResponseEntity<Mayorista> getMayoristaByUsername(@PathVariable("username") String username){
+        Mayorista mayorista=mayoristaRepository.findByUsername(username);
+        return new ResponseEntity<>(mayorista, HttpStatus.OK);
+    }
+
     @GetMapping("/mayorista/agricultor/{id}")
     public ResponseEntity<List<Mayorista>> findByAllCompradoresAgricultorIdSQL(@PathVariable("id") Long id){
         List<Mayorista> mayoristas = mayoristaRepository.findByAllCompradoresAgricultorIdSQL(id);
@@ -54,5 +61,21 @@ public class MayoristaController {
 
         return new ResponseEntity<Mayorista>(mayoristaRepository.save(mayoristaUpdate),
                 HttpStatus.OK);
+    }
+
+    @Transactional
+    @PostMapping("/mayorista")
+    public ResponseEntity<Mayorista> createUser(@RequestBody Mayorista mayorista) {
+
+        Mayorista newMayorista=
+                mayoristaRepository.save(
+                        new Mayorista(mayorista.getName(),
+                                mayorista.getLastname(),
+                                mayorista.getAddress(),
+                                mayorista.getUsername(),
+                                mayorista.getPassword(),
+                                mayorista.getEmail())
+                );
+        return new ResponseEntity<Mayorista>(newMayorista, HttpStatus.CREATED);
     }
 }

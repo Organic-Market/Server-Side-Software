@@ -1,18 +1,10 @@
 package com.organicmarket.market.controller;
 
-import com.organicmarket.market.entities.Pedido;
-import com.organicmarket.market.repository.PedidoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-import javax.transaction.Transactional;
-import java.util.List;
-
-@CrossOrigin(origins = "http://localhost:4200")
-@RestController
-@RequestMapping(value = "/api")
+@CrossOrigin(origins = "http://localhost:4200/")
+@Controller
 public class PedidoController {
     @Autowired
     private PedidoRepository pedidoRepository;

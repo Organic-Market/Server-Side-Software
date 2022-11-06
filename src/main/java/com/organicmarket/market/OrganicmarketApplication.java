@@ -19,5 +19,4 @@ public class OrganicmarketApplication {
         SpringApplication.run(OrganicmarketApplication.class, args);
     }
 
-
 }

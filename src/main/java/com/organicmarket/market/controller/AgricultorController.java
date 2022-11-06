@@ -9,10 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.organicmarket.market.entities.Agricultor;
+import com.organicmarket.market.exception.ResourceNotFoundException;
+import com.organicmarket.market.repository.AgricultorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import javax.transaction.Transactional;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api")
 public class AgricultorController {
@@ -24,15 +32,24 @@ public class AgricultorController {
         List<Agricultor> agricultor=agricultorRepository.findAll();
         return new ResponseEntity<List<Agricultor>>(agricultor, HttpStatus.OK);
     }
+
+    @GetMapping("/agricultor/{username}")
+    public ResponseEntity<Agricultor> getAllAgricultor(@PathVariable("username") String username){
+        Agricultor agricultor=agricultorRepository.findByUsername(username);
+        return new ResponseEntity<>(agricultor, HttpStatus.OK);
+    }
     @Transactional
     @PostMapping("/agricultor")
     public ResponseEntity<Agricultor> createUser(@RequestBody Agricultor agricultor) {
+
         Agricultor newAgricultor=
                 agricultorRepository.save(
                         new Agricultor(agricultor.getName(),
                                 agricultor.getLastname(),
                                 agricultor.getAddress(),
-                                agricultor.getUser())
+                                agricultor.getUsername(),
+                                agricultor.getPassword(),
+                                agricultor.getEmail())
                 );
         return new ResponseEntity<Agricultor>(newAgricultor, HttpStatus.CREATED);
     }

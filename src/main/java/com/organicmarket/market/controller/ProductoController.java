@@ -1,10 +1,10 @@
 package com.organicmarket.market.controller;
 
-import com.organicmarket.market.entities.CategoriaProducto;
 import com.organicmarket.market.entities.Producto;
 import com.organicmarket.market.exception.ResourceNotFoundException;
 import com.organicmarket.market.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api")
 
@@ -38,7 +38,7 @@ public class ProductoController {
 
     @Transactional
     @PostMapping("/products")
-    public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
+    public ResponseEntity<Producto> createProducto( @RequestBody Producto producto) {
         Producto newProducto = productoRepository.save(
                 new Producto(producto.getName(),
                         producto.getUnit_price(),
@@ -49,15 +49,27 @@ public class ProductoController {
         return new ResponseEntity<Producto>(newProducto,HttpStatus.CREATED);
     }
 
-    @Transactional
+    /*public ResponseEntity<Producto> createProducto(@RequestBody CreateProducto createProducto) {
+
+        Producto producto = new Producto();
+        producto.setName(producto.getName());
+        producto.setStock(producto.getStock());
+        producto.setUnit_price(producto.getUnit_price());
+        //producto.setAgricultor(agricultorRepository.findById(createProducto.getAgricultor_id()));
+        //producto.setCategoriaProducto(categoriaProductoRepository.findById(createProducto.getCategoria_id()));
+
+        productoRepository.save(producto);
+
+        return new ResponseEntity<Producto>(producto,HttpStatus.CREATED);
+
+    }*/
+
     @PutMapping("/products/{id}")
     public ResponseEntity<Producto> createProducto(@PathVariable("id") Long id, @RequestBody Producto producto) {
         Producto productosUpdate = productoRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
         productosUpdate.setName(producto.getName());
         productosUpdate.setUnit_price(producto.getUnit_price());
-        productosUpdate.setStock(producto.getStock());
-        productosUpdate.setCategoriaProducto(producto.getCategoriaProducto());
 
         return new ResponseEntity<Producto>(productoRepository.save(productosUpdate),
                 HttpStatus.OK);
@@ -72,16 +84,6 @@ public class ProductoController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @GetMapping("/products/nombre/{name}")
-    public ResponseEntity<List<Producto>> findProductsByName(@PathVariable("name") String name){
-        List<Producto> products = productoRepository.findProductsByName(name);
-        if(products.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(products, HttpStatus.OK);
-    }
-
-    @Transactional
     @DeleteMapping("/products/{id}")
     public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") Long id){
         productoRepository.deleteById(id);
