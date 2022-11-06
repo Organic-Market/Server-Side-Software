@@ -55,9 +55,13 @@ public class MayoristaController {
     public ResponseEntity<Mayorista> createMayorista(@PathVariable("id") Long id, @RequestBody Mayorista mayorista) {
         Mayorista mayoristaUpdate = mayoristaRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
+
         mayoristaUpdate.setName(mayorista.getName());
         mayoristaUpdate.setLastname(mayorista.getLastname());
         mayoristaUpdate.setAddress(mayorista.getAddress());
+        mayoristaUpdate.setUsername(mayorista.getUsername());
+        mayoristaUpdate.setPassword(mayorista.getPassword());
+        mayoristaUpdate.setEmail(mayorista.getEmail());
 
         return new ResponseEntity<Mayorista>(mayoristaRepository.save(mayoristaUpdate),
                 HttpStatus.OK);

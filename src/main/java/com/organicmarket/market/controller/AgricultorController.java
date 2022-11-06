@@ -56,6 +56,9 @@ public class AgricultorController {
         agricultorUpdate.setName(agricultor.getName());
         agricultorUpdate.setLastname(agricultor.getLastname());
         agricultorUpdate.setAddress(agricultor.getAddress());
+        agricultorUpdate.setUsername(agricultor.getUsername());
+        agricultorUpdate.setPassword(agricultor.getPassword());
+        agricultorUpdate.setEmail(agricultor.getEmail());
 
         return new ResponseEntity<Agricultor>(agricultorRepository.save(agricultorUpdate),
                 HttpStatus.OK);
