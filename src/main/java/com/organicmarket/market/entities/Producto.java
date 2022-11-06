@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name="products")
@@ -21,11 +22,29 @@ public class Producto {
     @Column(name = "units_in_stock", nullable = false)
     private float stock;
 
+<<<<<<< Updated upstream
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private CategoriaProducto CategoriaProducto;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Agricultor Agricultor;
+=======
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private CategoriaProducto categoriaProducto;
+
+    public Producto(String name, float unit_price, int stock, Agricultor agricultor, CategoriaProducto categoriaProducto) {
+        this.name = name;
+        this.unit_price = unit_price;
+        this.stock = stock;
+        this.categoriaProducto = categoriaProducto;
+        this.agricultor = agricultor;
+    }
+>>>>>>> Stashed changes
+
+    public Producto() {
+        
+    }
 
     public Long getId() {
         return id;

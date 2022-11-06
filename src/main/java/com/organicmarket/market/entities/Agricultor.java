@@ -1,5 +1,7 @@
 package com.organicmarket.market.entities;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,25 +14,51 @@ public class Agricultor {
 
     @Column(name = "name", length = 15, nullable = false)
     private String name;
+<<<<<<< Updated upstream
     @Column(name = "lastName", length = 30, nullable = false)
     private String lastName;
+=======
+
+    @Column(name = "lastname", length = 30, nullable = false)
+    private String lastname;
+
+>>>>>>> Stashed changes
     @Column(name ="address", length = 60, nullable = false)
     private String address;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "username", nullable = false)
+    private String username;
 
+<<<<<<< Updated upstream
     @OneToMany
     private List<Producto> products;
+=======
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    public Agricultor() {
-    }
+    @Column(name = "email", nullable = false)
+    private String email;
+>>>>>>> Stashed changes
 
+
+<<<<<<< Updated upstream
     public Agricultor(String name, String lastName, String address) {
+=======
+    public Agricultor(String name, String lastname, String address, String username, String password, String email) {
+>>>>>>> Stashed changes
         this.name = name;
         this.lastName = lastName;
         this.address = address;
+<<<<<<< Updated upstream
+=======
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    public Agricultor() {
+
+>>>>>>> Stashed changes
     }
 
     public Long getId() {
@@ -65,6 +93,7 @@ public class Agricultor {
         this.address = address;
     }
 
+<<<<<<< Updated upstream
     @Override
     public String toString() {
         return "Agricultor{" +
@@ -73,5 +102,29 @@ public class Agricultor {
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+=======
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+>>>>>>> Stashed changes
     }
 }
