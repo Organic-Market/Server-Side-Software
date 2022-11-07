@@ -70,6 +70,7 @@ public class ProductoController {
                 .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
         productosUpdate.setName(producto.getName());
         productosUpdate.setUnit_price(producto.getUnit_price());
+        productosUpdate.setStock(producto.getStock());
 
         return new ResponseEntity<Producto>(productoRepository.save(productosUpdate),
                 HttpStatus.OK);
