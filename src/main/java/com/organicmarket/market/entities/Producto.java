@@ -32,7 +32,7 @@ public class Producto {
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnoreProperties( {"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "categoria_id", nullable = true)
+    @JoinColumn(name = "categoria_id", nullable = false)
     private CategoriaProducto categoriaProducto;
 
     public Producto() {

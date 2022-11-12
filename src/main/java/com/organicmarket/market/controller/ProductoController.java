@@ -73,13 +73,6 @@ public class ProductoController {
         product.setPicture(Util.compressZLib(picture.getBytes()));
 
         //TODO: búsqueda de categoría para establecer en el objeto del producto
-        CategoriaProducto categoriaProducto = categoriaRepository.findById(categoryID)
-                .orElseThrow(()-> new ResourceNotFoundException("Not found category with id="+categoryID));
-
-        if( categoriaProducto!=null) {
-            product.setCategoriaProducto(categoriaProducto);
-        }
-
         Agricultor agricultor = agricultorRepository.findById(agricultorID)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found agricultor with id="+agricultorID));
 
@@ -87,6 +80,12 @@ public class ProductoController {
             product.setAgricultor(agricultor);
         }
 
+        CategoriaProducto categoriaProducto = categoriaRepository.findById(categoryID)
+                .orElseThrow(()-> new ResourceNotFoundException("Not found category with id="+categoryID));
+
+        if( categoriaProducto!=null) {
+            product.setCategoriaProducto(categoriaProducto);
+        }
 
         Producto productSaved=productoRepository.save(product);
 

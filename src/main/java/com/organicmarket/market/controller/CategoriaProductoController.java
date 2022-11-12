@@ -1,6 +1,7 @@
 package com.organicmarket.market.controller;
 
 import com.organicmarket.market.entities.CategoriaProducto;
+import com.organicmarket.market.exception.ResourceNotFoundException;
 import com.organicmarket.market.repository.CategoriaProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,13 @@ public class CategoriaProductoController {
         List<CategoriaProducto> categoria = categoriaProductoRepository.findAll();
 
         return new ResponseEntity<List<CategoriaProducto>>(categoria, HttpStatus.OK);
+    }
+
+    @GetMapping("/categoria/{id}")
+    public ResponseEntity<CategoriaProducto> searchCategoriesById(@PathVariable Long id) {
+        CategoriaProducto categoriaProducto= categoriaProductoRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Not found category with id="+id));
+        return new ResponseEntity<CategoriaProducto>(categoriaProducto,HttpStatus.OK);
     }
 
     @Transactional
