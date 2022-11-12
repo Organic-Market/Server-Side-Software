@@ -1,15 +1,25 @@
 package com.organicmarket.market.controller;
 
+import com.organicmarket.market.Util.ProductoExcelExporter;
+import com.organicmarket.market.Util.Util;
+import com.organicmarket.market.entities.Agricultor;
+import com.organicmarket.market.entities.CategoriaProducto;
 import com.organicmarket.market.entities.Producto;
 import com.organicmarket.market.exception.ResourceNotFoundException;
+import com.organicmarket.market.repository.AgricultorRepository;
+import com.organicmarket.market.repository.CategoriaProductoRepository;
 import com.organicmarket.market.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200/")
@@ -21,6 +31,13 @@ public class ProductoController {
     @Autowired
     private ProductoRepository productoRepository;
 
+    @Autowired
+    private CategoriaProductoRepository categoriaRepository;
+
+    @Autowired
+    private AgricultorRepository agricultorRepository;
+
+    //Obtener productos
     @GetMapping("/products")
     public ResponseEntity<List<Producto>> searchProducts(){
         List<Producto> productos = productoRepository.findAll();
@@ -28,6 +45,7 @@ public class ProductoController {
         return new ResponseEntity<List<Producto>>(productos, HttpStatus.OK);
     }
 
+    //Obtener productos por ID
     @GetMapping("/products/{id}")
     public ResponseEntity<Producto> searchProductById(@PathVariable("id") Long id) {
         Producto productos = productoRepository.findById(id)
@@ -36,7 +54,47 @@ public class ProductoController {
         return new ResponseEntity<Producto>(productos,HttpStatus.OK);
     }
 
+    //Agregar productos
+
     @Transactional
+    @PostMapping("/products")
+    //public ResponseEntity<Product> save(@RequestBody Product product) {
+    public ResponseEntity<Producto> save(@RequestParam("picture") MultipartFile picture,
+                                        @RequestParam("name") String name,
+                                        @RequestParam("unit_price") float unit_price,
+                                        @RequestParam("cantidad") int stock,
+                                        @RequestParam("agricultorID") Long agricultorID,
+                                        @RequestParam("categoryID") Long categoryID )throws IOException{
+
+        Producto product = new Producto();
+        product.setName(name);
+        product.setUnit_price(unit_price);
+        product.setStock(stock);
+        product.setPicture(Util.compressZLib(picture.getBytes()));
+
+        //TODO: búsqueda de categoría para establecer en el objeto del producto
+        CategoriaProducto categoriaProducto = categoriaRepository.findById(categoryID)
+                .orElseThrow(()-> new ResourceNotFoundException("Not found category with id="+categoryID));
+
+        if( categoriaProducto!=null) {
+            product.setCategoriaProducto(categoriaProducto);
+        }
+
+        Agricultor agricultor = agricultorRepository.findById(agricultorID)
+                .orElseThrow(()-> new ResourceNotFoundException("Not found agricultor with id="+agricultorID));
+
+        if( agricultor!=null) {
+            product.setAgricultor(agricultor);
+        }
+
+
+        Producto productSaved=productoRepository.save(product);
+
+        return new ResponseEntity<Producto>(productSaved,HttpStatus.CREATED);
+    }
+
+
+    /*@Transactional
     @PostMapping("/products")
     public ResponseEntity<Producto> saveProduct( @RequestBody Producto producto) {
         Producto newProducto = productoRepository.save(
@@ -48,7 +106,45 @@ public class ProductoController {
                         producto.getCategoriaProducto())
         );
         return new ResponseEntity<Producto>(newProducto,HttpStatus.CREATED);
+    }*/
+
+    //Exportar a excel file
+    @GetMapping("/products/export/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+
+        response.setContentType("application/octet-stream");
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=result_product";
+        response.setHeader(headerKey, headerValue);
+
+        List<Producto> products = productoRepository.findAll();
+
+        ProductoExcelExporter excelExporter = new ProductoExcelExporter(
+                products);
+
+        excelExporter.export(response);
     }
+
+    /*@GetMapping("/products/filter/{name}")
+    public ResponseEntity<List<Producto>> searchByName(@PathVariable String name){
+        List<Producto> products=new ArrayList<>();
+        List<Producto> productsAux=new ArrayList<>();
+
+        productsAux=productoRepository.findByNameContainingIgnoreCase(name);
+
+        if(productsAux.size()>0){
+            productsAux.stream().forEach((p)->{
+                byte[] imageDescompressed = Util.decompressZLib(p.getPicture());
+                p.setPicture(imageDescompressed);
+                products.add(p);
+            });
+        }
+
+        return new ResponseEntity<List<Producto>>(products, HttpStatus.OK);
+    }*/
+
+
 
     /*public ResponseEntity<Producto> createProducto(@RequestBody CreateProducto createProducto) {
 

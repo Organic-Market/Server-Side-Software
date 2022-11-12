@@ -1,6 +1,8 @@
 package com.organicmarket.market.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.CascadeType;
 import javax.persistence.*;
 
@@ -23,11 +25,13 @@ public class Producto {
     @Column( name ="picture")
     private byte[] picture;
 
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JsonIgnoreProperties( {"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "agricultor_id", nullable = true)
     private Agricultor agricultor;
 
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JsonIgnoreProperties( {"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "categoria_id", nullable = true)
     private CategoriaProducto categoriaProducto;
 
