@@ -15,13 +15,6 @@ public class CategoriaProducto {
     @Column(name = "name",length = 20)
     private String name;
 
-    public CategoriaProducto() {
-    }
-
-    public CategoriaProducto(String name) {
-        this.name = name;
-    }
-
     public Long getId() {
         return id;
     }
