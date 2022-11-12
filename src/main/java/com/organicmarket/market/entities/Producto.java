@@ -18,6 +18,11 @@ public class Producto {
     @Column(name = "stock", nullable = false)
     private int stock;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column( name ="picture")
+    private byte[] picture;
+
     @ManyToOne
     @JoinColumn(name = "agricultor_id", nullable = true)
     private Agricultor agricultor;
@@ -29,10 +34,11 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String name, float unit_price, int stock, Agricultor agricultor, CategoriaProducto categoriaProducto) {
+    public Producto(String name, float unit_price, int stock, byte[] picture, Agricultor agricultor, CategoriaProducto categoriaProducto) {
         this.name = name;
         this.unit_price = unit_price;
         this.stock = stock;
+        this.picture = picture;
         this.agricultor = agricultor;
         this.categoriaProducto = categoriaProducto;
     }
@@ -67,6 +73,14 @@ public class Producto {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 
     public Agricultor getAgricultor() {

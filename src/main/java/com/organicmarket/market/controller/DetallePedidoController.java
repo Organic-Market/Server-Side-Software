@@ -16,13 +16,13 @@ public class DetallePedidoController {
     private DetallePedidoRepository detallePedidoRepository;
 
     @GetMapping("/detalle_pedido")
-    public ResponseEntity<List<DetallePedido>> getAllDetallePedido(){
+    public ResponseEntity<List<DetallePedido>> searchDetallePedido(){
         List<DetallePedido> detallePedido = detallePedidoRepository.findAll();
         return new ResponseEntity<List<DetallePedido>>(detallePedido, HttpStatus.OK);
     }
 
     @PostMapping("/detalle_pedido")
-    public ResponseEntity<DetallePedido> createDetallePedido(@RequestBody DetallePedido detalle_pedido){
+    public ResponseEntity<DetallePedido> saveDetallePedido(@RequestBody DetallePedido detalle_pedido){
         DetallePedido newdetallePedido =
                 detallePedidoRepository.save(
                         new DetallePedido(detalle_pedido.getQuantity(),

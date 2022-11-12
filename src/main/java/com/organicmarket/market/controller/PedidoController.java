@@ -19,13 +19,13 @@ public class PedidoController {
     private PedidoRepository pedidoRepository;
 
     @GetMapping("/pedido")
-    public ResponseEntity<List<Pedido>> getAllPedido() {
+    public ResponseEntity<List<Pedido>> serachPedidos() {
         List<Pedido> pedido = pedidoRepository.findAll();
         return new ResponseEntity<>(pedido, HttpStatus.OK);
     }
     @Transactional
     @PostMapping("/pedido")
-    public ResponseEntity<Pedido> createPedido(@RequestBody Pedido pedido) {
+    public ResponseEntity<Pedido> savePedido(@RequestBody Pedido pedido) {
         Pedido newPedido =
                 pedidoRepository.save(
                         new Pedido(pedido.getDate(),

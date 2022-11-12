@@ -22,14 +22,14 @@ public class ProductoController {
     private ProductoRepository productoRepository;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Producto>> getAllMayorista(){
+    public ResponseEntity<List<Producto>> searchProducts(){
         List<Producto> productos = productoRepository.findAll();
 
         return new ResponseEntity<List<Producto>>(productos, HttpStatus.OK);
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<Producto> getProductoById(@PathVariable("id") Long id) {
+    public ResponseEntity<Producto> searchProductById(@PathVariable("id") Long id) {
         Producto productos = productoRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
 
@@ -38,11 +38,12 @@ public class ProductoController {
 
     @Transactional
     @PostMapping("/products")
-    public ResponseEntity<Producto> createProducto( @RequestBody Producto producto) {
+    public ResponseEntity<Producto> saveProduct( @RequestBody Producto producto) {
         Producto newProducto = productoRepository.save(
                 new Producto(producto.getName(),
                         producto.getUnit_price(),
                         producto.getStock(),
+                        producto.getPicture(),
                         producto.getAgricultor(),
                         producto.getCategoriaProducto())
         );
@@ -65,7 +66,7 @@ public class ProductoController {
     }*/
 
     @PutMapping("/products/{id}")
-    public ResponseEntity<Producto> createProducto(@PathVariable("id") Long id, @RequestBody Producto producto) {
+    public ResponseEntity<Producto> updateProduct(@PathVariable("id") Long id, @RequestBody Producto producto) {
         Producto productosUpdate = productoRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
         productosUpdate.setName(producto.getName());
@@ -85,6 +86,7 @@ public class ProductoController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    @Transactional
     @DeleteMapping("/products/{id}")
     public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") Long id){
         productoRepository.deleteById(id);

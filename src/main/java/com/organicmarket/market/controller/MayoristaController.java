@@ -21,13 +21,13 @@ public class MayoristaController {
     private MayoristaRepository mayoristaRepository;
 
     @GetMapping("/mayorista")
-    public ResponseEntity<List<Mayorista>> getAllMayorista(){
+    public ResponseEntity<List<Mayorista>> searchAllMayorista(){
         List<Mayorista> mayoristas = mayoristaRepository.findAll();
 
         return new ResponseEntity<List<Mayorista>>(mayoristas, HttpStatus.OK);
     }
     @GetMapping("/mayorista/{id}")
-    public ResponseEntity<Mayorista> getMayoristaById(@PathVariable("id") Long id) {
+    public ResponseEntity<Mayorista> searchMayoristaById(@PathVariable("id") Long id) {
         Mayorista mayoristas = mayoristaRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found Mayorista with id="+id));
 
@@ -35,7 +35,7 @@ public class MayoristaController {
     }
 
     @GetMapping("/mayorista/{username}")
-    public ResponseEntity<Mayorista> getMayoristaByUsername(@PathVariable("username") String username){
+    public ResponseEntity<Mayorista> searchMayoristaByUsername(@PathVariable("username") String username){
         Mayorista mayorista=mayoristaRepository.findByUsername(username);
         return new ResponseEntity<>(mayorista, HttpStatus.OK);
     }
@@ -52,7 +52,7 @@ public class MayoristaController {
     //Actualizar informacion de usuario (mayorista)
     @Transactional
     @PutMapping("/mayorista/{id}")
-    public ResponseEntity<Mayorista> createMayorista(@PathVariable("id") Long id, @RequestBody Mayorista mayorista) {
+    public ResponseEntity<Mayorista> updateMayorista(@PathVariable("id") Long id, @RequestBody Mayorista mayorista) {
         Mayorista mayoristaUpdate = mayoristaRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
 
@@ -69,7 +69,7 @@ public class MayoristaController {
 
     @Transactional
     @PostMapping("/mayorista")
-    public ResponseEntity<Mayorista> createUser(@RequestBody Mayorista mayorista) {
+    public ResponseEntity<Mayorista> saveMayorista(@RequestBody Mayorista mayorista) {
 
         Mayorista newMayorista=
                 mayoristaRepository.save(
