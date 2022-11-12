@@ -1,11 +1,15 @@
 package com.organicmarket.market.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "categoria_producto")
 public class CategoriaProducto {
     @Id

@@ -16,7 +16,7 @@ public class Producto {
     @Column(name = "name", length = 20)
     private String name;
     @Column(name = "unit_price", nullable = false)
-    private float unit_price;
+    private int unit_price;
     @Column(name = "stock", nullable = false)
     private int stock;
 
@@ -38,7 +38,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String name, float unit_price, int stock, byte[] picture, Agricultor agricultor, CategoriaProducto categoriaProducto) {
+    public Producto(String name, int unit_price, int stock, byte[] picture, Agricultor agricultor, CategoriaProducto categoriaProducto) {
         this.name = name;
         this.unit_price = unit_price;
         this.stock = stock;
@@ -63,11 +63,11 @@ public class Producto {
         this.name = name;
     }
 
-    public float getUnit_price() {
+    public int getUnit_price() {
         return unit_price;
     }
 
-    public void setUnit_price(float unit_price) {
+    public void setUnit_price(int unit_price) {
         this.unit_price = unit_price;
     }
 

@@ -43,8 +43,8 @@ public class ProductoExcelExporter {
         createCell(row, 1, "Nombre", style);
         createCell(row, 2, "Precio", style);
         createCell(row, 3, "Cantidad", style);
-        createCell(row, 4, "Agricultor", style);
-        createCell(row, 5, "Categoría", style);
+        //createCell(row, 4, "Agricultor", style);
+        createCell(row, 4, "Categoría", style);
 
     }
 
@@ -82,7 +82,7 @@ public class ProductoExcelExporter {
             createCell(row, columnCount++, result.getName(), style);
             createCell(row, columnCount++, result.getUnit_price(), style);
             createCell(row, columnCount++, result.getStock(), style);
-            createCell(row, columnCount++, result.getAgricultor().getName(), style);
+            //createCell(row, columnCount++, result.getAgricultor().getName(), style);
             createCell(row, columnCount++, result.getCategoriaProducto().getName(), style);
 
         }

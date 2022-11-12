@@ -38,12 +38,31 @@ public class ProductoController {
     private AgricultorRepository agricultorRepository;
 
     //Obtener productos
-    @GetMapping("/products")
-    public ResponseEntity<List<Producto>> searchProducts(){
-        List<Producto> productos = productoRepository.findAll();
+    //@GetMapping("/products")
+    //public ResponseEntity<List<Producto>> searchProducts(){
+    //    List<Producto> productos = productoRepository.findAll();
 
-        return new ResponseEntity<List<Producto>>(productos, HttpStatus.OK);
+    //    return new ResponseEntity<List<Producto>>(productos, HttpStatus.OK);
+    //}
+
+    @GetMapping("/products")
+    public ResponseEntity<List<Producto>> search() {
+        List<Producto> products=new ArrayList<>();
+        List<Producto> productsAux=new ArrayList<>();
+
+        productsAux=productoRepository.findAll();
+
+        if(productsAux.size()>0){
+            productsAux.stream().forEach((p)->{
+                byte[] imageDescompressed = Util.decompressZLib(p.getPicture());
+                p.setPicture(imageDescompressed);
+                products.add(p);
+            });
+        }
+
+        return new ResponseEntity<List<Producto>>(products, HttpStatus.OK);
     }
+
 
     //Obtener productos por ID
     @GetMapping("/products/{id}")
@@ -61,9 +80,8 @@ public class ProductoController {
     //public ResponseEntity<Product> save(@RequestBody Product product) {
     public ResponseEntity<Producto> save(@RequestParam("picture") MultipartFile picture,
                                         @RequestParam("name") String name,
-                                        @RequestParam("unit_price") float unit_price,
+                                        @RequestParam("unit_price") int unit_price,
                                         @RequestParam("cantidad") int stock,
-                                        @RequestParam("agricultorID") Long agricultorID,
                                         @RequestParam("categoryID") Long categoryID )throws IOException{
 
         Producto product = new Producto();
@@ -73,12 +91,12 @@ public class ProductoController {
         product.setPicture(Util.compressZLib(picture.getBytes()));
 
         //TODO: búsqueda de categoría para establecer en el objeto del producto
-        Agricultor agricultor = agricultorRepository.findById(agricultorID)
-                .orElseThrow(()-> new ResourceNotFoundException("Not found agricultor with id="+agricultorID));
+        //Agricultor agricultor = agricultorRepository.findById(agricultorID)
+        //        .orElseThrow(()-> new ResourceNotFoundException("Not found agricultor with id="+agricultorID));
 
-        if( agricultor!=null) {
-            product.setAgricultor(agricultor);
-        }
+        //if( agricultor!=null) {
+        //    product.setAgricultor(agricultor);
+        //}
 
         CategoriaProducto categoriaProducto = categoriaRepository.findById(categoryID)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found category with id="+categoryID));
