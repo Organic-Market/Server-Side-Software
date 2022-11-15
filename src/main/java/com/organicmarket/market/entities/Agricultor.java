@@ -1,6 +1,5 @@
 package com.organicmarket.market.entities;
 
-
 import javax.persistence.*;
 
 @Entity

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "detalles_pedidos")
 public class DetallePedido {
@@ -19,7 +20,8 @@ public class DetallePedido {
     private float discount;
 
     @ManyToOne
-    @JoinColumn(name = "pedido_id", nullable = false)
+    @JoinColumn(name = "pedido_id", nullable = false,
+        foreignKey=@ForeignKey(name="FK_PEDIDO_DETALLE"))
     @JsonIgnore
     private Pedido pedido;
 

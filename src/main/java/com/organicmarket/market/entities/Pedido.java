@@ -1,11 +1,16 @@
 package com.organicmarket.market.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 
+@Data
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
@@ -14,24 +19,25 @@ public class Pedido {
     private Long id;
 
     @Column(name = "date", nullable = false)
-    private Date date;
+    private LocalDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "mayorista_id", nullable = false)
+    @JoinColumn(name = "mayorista_id", nullable = false, foreignKey = @ForeignKey(name = "FK_PEDIDO_MAYORISTA"))
     private Mayorista mayorista;
 
-    @OneToMany(mappedBy = "pedido", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, fetch = FetchType.LAZY)
-    private Set<DetallePedido> detallePedidos = new HashSet<DetallePedido>();
+    @OneToMany(mappedBy = "pedido",
+            cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<DetallePedido> detallePedidos;
 
     public Pedido() {
     }
 
-    public Pedido(Date date, Mayorista mayorista) {
+    public Pedido(LocalDateTime date, Mayorista mayorista) {
         this.date = date;
         this.mayorista = mayorista;
     }
 
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
@@ -39,7 +45,7 @@ public class Pedido {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
@@ -48,7 +54,7 @@ public class Pedido {
     }
 
 
-    public void setDetallePedidos(Set<DetallePedido> pedidos) {
+    public void setDetallePedidos(List<DetallePedido> pedidos) {
         this.detallePedidos = pedidos;
     }
 
@@ -56,12 +62,11 @@ public class Pedido {
         this.detallePedidos.add(detallePedido);
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Pedido{" +
                 "id=" + id +
                 ", date=" + date +
                 ", mayorista=" + mayorista +
-                '}';
-    }
+                '}';*/
 }

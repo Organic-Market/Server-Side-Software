@@ -2,6 +2,7 @@ package com.organicmarket.market.entities;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "mayorista")
 public class Mayorista {

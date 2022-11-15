@@ -27,12 +27,12 @@ public class Producto {
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnoreProperties( {"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "agricultor_id", nullable = true)
+    @JoinColumn(name = "agricultor_id", nullable = true, foreignKey = @ForeignKey(name = "FK_PRODUCTO_AGRICULTOR"))
     private Agricultor agricultor;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnoreProperties( {"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "categoria_id", nullable = false)
+    @JoinColumn(name = "categoria_id", nullable = false, foreignKey = @ForeignKey(name = "FK_PRODUCTO_CATEGORIA"))
     private CategoriaProducto categoriaProducto;
 
     public Producto() {
