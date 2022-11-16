@@ -17,4 +17,9 @@ public interface PedidoRepository
 
     @Query("FROM Pedido p WHERE p.date BETWEEN :date1 AND :date2")
     List<Pedido> searchByDate(@Param("date1") LocalDateTime date1, @Param("date2") LocalDateTime date2);
+
+    @Query(value="select * from fn_reporte_cantidad_pedidos_fecha()", nativeQuery = true)
+    List<Object[]> callProcedureorFunction();
+
+
 }

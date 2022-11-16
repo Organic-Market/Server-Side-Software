@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.CascadeType;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -24,6 +25,10 @@ public class Producto {
     @Basic(fetch = FetchType.LAZY)
     @Column( name ="picture")
     private byte[] picture;
+
+    /*@OneToMany(mappedBy = "producto",
+            cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<DetallePedido> detallePedidos;*/
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnoreProperties( {"hibernateLazyInitializer", "handler"})
