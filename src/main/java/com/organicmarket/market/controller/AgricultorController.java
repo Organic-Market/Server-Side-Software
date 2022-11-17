@@ -1,5 +1,9 @@
 package com.organicmarket.market.controller;
 
+import com.organicmarket.market.converter.AgricultorConverter;
+import com.organicmarket.market.converter.MayoristaConverter;
+import com.organicmarket.market.dto.LoginRequestDTO;
+import com.organicmarket.market.dto.LoginResponseDTO;
 import com.organicmarket.market.entities.Agricultor;
 import com.organicmarket.market.exception.ResourceNotFoundException;
 import com.organicmarket.market.repository.AgricultorRepository;
@@ -9,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.transaction.TransactionScoped;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -19,6 +22,12 @@ import java.util.List;
 public class AgricultorController {
     @Autowired
     private AgricultorRepository agricultorRepository;
+
+    private final AgricultorConverter agricultorConverter;
+
+    public AgricultorController(AgricultorConverter agricultorConverter){
+        this.agricultorConverter = agricultorConverter;
+    }
 
     @GetMapping("/agricultor")
     public ResponseEntity<List<Agricultor>> searchAgricultores(){
@@ -63,5 +72,16 @@ public class AgricultorController {
 
         return new ResponseEntity<Agricultor>(agricultorRepository.save(agricultorUpdate),
                 HttpStatus.OK);
+    }
+
+    @PostMapping("/agricultor/signin")
+    public ResponseEntity<LoginResponseDTO> signInAgricultor(@RequestBody LoginRequestDTO request) {
+        Agricultor agricultorSignin=agricultorRepository
+                .findByEmailAndPassword(request.getEmail(), request.getPassword())
+                .orElseThrow(()-> new ResourceNotFoundException("email y/o password incorrectos"));
+
+        LoginResponseDTO response=agricultorConverter.convertEntityToDto(agricultorSignin);
+
+        return new ResponseEntity<LoginResponseDTO>(response, HttpStatus.OK);
     }
 }

@@ -18,8 +18,6 @@ public interface ProductoRepository
     @Query(value = "SELECT a.id, a.name, p.name, p.stock, p.unit_price FROM Producto p JOIN p.agricultor a ON a.id = p.agricultor.id WHERE a.id=?1")
     List<Producto> findByAllProductsAgricultorIdJPQL(Long id);
 
-    @Query(value = "SELECT * FROM products WHERE name like %:name%", nativeQuery = true)
-    List<Producto> findProductsByName(@Param("name") String name);
-
+    List<Producto> findByNameContainingIgnoreCase(String name);
 
 }

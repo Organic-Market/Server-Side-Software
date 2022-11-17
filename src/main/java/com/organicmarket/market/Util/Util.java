@@ -8,7 +8,6 @@ import java.util.zip.Inflater;
 
 public class Util {
 
-    // TODO: comprimir los bytes de la imagen antes de almacenarla en la base de datos
     public static byte[] compressZLib(byte[] data) {
         Deflater deflater = new Deflater();
         deflater.setInput(data);
@@ -29,7 +28,6 @@ public class Util {
         return outputStream.toByteArray();
     }
 
-    // TODO: descomprime los bytes de la imagen antes de devolverlos a la aplicación angular
     public static byte[] decompressZLib(byte[] data) {
         Inflater inflater = new Inflater();
         inflater.setInput(data);
@@ -46,5 +44,4 @@ public class Util {
         }
         return outputStream.toByteArray();
     }
-
 }

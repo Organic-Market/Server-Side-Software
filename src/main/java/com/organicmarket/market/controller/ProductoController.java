@@ -37,14 +37,6 @@ public class ProductoController {
     @Autowired
     private AgricultorRepository agricultorRepository;
 
-    //Obtener productos
-    //@GetMapping("/products")
-    //public ResponseEntity<List<Producto>> searchProducts(){
-    //    List<Producto> productos = productoRepository.findAll();
-
-    //    return new ResponseEntity<List<Producto>>(productos, HttpStatus.OK);
-    //}
-
     @GetMapping("/products")
     public ResponseEntity<List<Producto>> search() {
         List<Producto> products=new ArrayList<>();
@@ -110,21 +102,6 @@ public class ProductoController {
         return new ResponseEntity<Producto>(productSaved,HttpStatus.CREATED);
     }
 
-
-    /*@Transactional
-    @PostMapping("/products")
-    public ResponseEntity<Producto> saveProduct( @RequestBody Producto producto) {
-        Producto newProducto = productoRepository.save(
-                new Producto(producto.getName(),
-                        producto.getUnit_price(),
-                        producto.getStock(),
-                        producto.getPicture(),
-                        producto.getAgricultor(),
-                        producto.getCategoriaProducto())
-        );
-        return new ResponseEntity<Producto>(newProducto,HttpStatus.CREATED);
-    }*/
-
     //Exportar a excel file
     @GetMapping("/products/export/excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
@@ -142,41 +119,6 @@ public class ProductoController {
 
         excelExporter.export(response);
     }
-
-    /*@GetMapping("/products/filter/{name}")
-    public ResponseEntity<List<Producto>> searchByName(@PathVariable String name){
-        List<Producto> products=new ArrayList<>();
-        List<Producto> productsAux=new ArrayList<>();
-
-        productsAux=productoRepository.findByNameContainingIgnoreCase(name);
-
-        if(productsAux.size()>0){
-            productsAux.stream().forEach((p)->{
-                byte[] imageDescompressed = Util.decompressZLib(p.getPicture());
-                p.setPicture(imageDescompressed);
-                products.add(p);
-            });
-        }
-
-        return new ResponseEntity<List<Producto>>(products, HttpStatus.OK);
-    }*/
-
-
-
-    /*public ResponseEntity<Producto> createProducto(@RequestBody CreateProducto createProducto) {
-
-        Producto producto = new Producto();
-        producto.setName(producto.getName());
-        producto.setStock(producto.getStock());
-        producto.setUnit_price(producto.getUnit_price());
-        //producto.setAgricultor(agricultorRepository.findById(createProducto.getAgricultor_id()));
-        //producto.setCategoriaProducto(categoriaProductoRepository.findById(createProducto.getCategoria_id()));
-
-        productoRepository.save(producto);
-
-        return new ResponseEntity<Producto>(producto,HttpStatus.CREATED);
-
-    }*/
 
     @PutMapping("/products/{id}")
     public ResponseEntity<Producto> updateProduct(@PathVariable("id") Long id, @RequestBody Producto producto) {
@@ -204,6 +146,23 @@ public class ProductoController {
     public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") Long id){
         productoRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/products/filter/{name}")
+    public ResponseEntity<List<Producto>> searchByName(@PathVariable String name){
+        List<Producto> products=new ArrayList<>();
+        List<Producto> productsAux=new ArrayList<>();
+
+        productsAux=productoRepository.findByNameContainingIgnoreCase(name);
+
+        if(productsAux.size()>0){
+            productsAux.stream().forEach((p)->{
+                byte[] imageDescompressed = Util.decompressZLib(p.getPicture());
+                p.setPicture(imageDescompressed);
+                products.add(p);
+            });
+        }
+        return new ResponseEntity<List<Producto>>(products, HttpStatus.OK);
     }
 
 }

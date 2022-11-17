@@ -1,6 +1,8 @@
 package com.organicmarket.market.controller;
 
-import com.organicmarket.market.entities.Agricultor;
+import com.organicmarket.market.converter.MayoristaConverter;
+import com.organicmarket.market.dto.LoginRequestDTO;
+import com.organicmarket.market.dto.LoginResponseDTO;
 import com.organicmarket.market.entities.Mayorista;
 import com.organicmarket.market.exception.ResourceNotFoundException;
 import com.organicmarket.market.repository.MayoristaRepository;
@@ -19,6 +21,12 @@ public class MayoristaController {
 
     @Autowired
     private MayoristaRepository mayoristaRepository;
+
+    private final MayoristaConverter mayoristaConverter;
+
+    public MayoristaController(MayoristaConverter mayoristaConverter){
+        this.mayoristaConverter = mayoristaConverter;
+    }
 
     @GetMapping("/mayorista")
     public ResponseEntity<List<Mayorista>> searchAllMayorista(){
@@ -82,4 +90,17 @@ public class MayoristaController {
                 );
         return new ResponseEntity<Mayorista>(newMayorista, HttpStatus.CREATED);
     }
+
+    @PostMapping("/mayorista/signin")
+    public ResponseEntity<LoginResponseDTO> signInMayorista(@RequestBody LoginRequestDTO request) {
+        Mayorista mayoristaSignin=mayoristaRepository
+                .findByEmailAndPassword(request.getEmail(), request.getPassword())
+                .orElseThrow(()-> new ResourceNotFoundException("email y/o password incorrectos"));
+
+        LoginResponseDTO response=mayoristaConverter.convertEntityToDto(mayoristaSignin);
+
+        return new ResponseEntity<LoginResponseDTO>(response, HttpStatus.OK);
+    }
+
+
 }
