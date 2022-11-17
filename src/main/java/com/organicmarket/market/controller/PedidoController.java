@@ -28,15 +28,7 @@ public class PedidoController {
         List<Pedido> pedido = pedidoRepository.findAll();
         return new ResponseEntity<>(pedido, HttpStatus.OK);
     }
-    @Transactional
-    @PostMapping("/pedido")
-    public ResponseEntity<Pedido> savePedido(@RequestBody Pedido pedido) {
-        Pedido newPedido =
-                pedidoRepository.save(
-                        new Pedido(pedido.getDate(),
-                                pedido.getMayorista()));
-        return new ResponseEntity<Pedido>(newPedido, HttpStatus.CREATED);
-    }
+
     @Transactional
     @DeleteMapping("/pedido/{id}")
     public ResponseEntity<HttpStatus> deletePedido(@PathVariable("id") Long id){

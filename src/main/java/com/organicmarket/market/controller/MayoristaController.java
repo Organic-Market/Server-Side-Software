@@ -34,7 +34,7 @@ public class MayoristaController {
 
         return new ResponseEntity<List<Mayorista>>(mayoristas, HttpStatus.OK);
     }
-    @GetMapping("/mayorista/{id}")
+    /*@GetMapping("/mayorista/{id}")
     public ResponseEntity<Mayorista> searchMayoristaById(@PathVariable("id") Long id) {
         Mayorista mayoristas = mayoristaRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Not found Mayorista with id="+id));
@@ -46,7 +46,7 @@ public class MayoristaController {
     public ResponseEntity<Mayorista> searchMayoristaByUsername(@PathVariable("username") String username){
         Mayorista mayorista=mayoristaRepository.findByUsername(username);
         return new ResponseEntity<>(mayorista, HttpStatus.OK);
-    }
+    }*/
 
     @GetMapping("/mayorista/agricultor/{id}")
     public ResponseEntity<List<Mayorista>> findByAllCompradoresAgricultorIdSQL(@PathVariable("id") Long id){
@@ -58,7 +58,7 @@ public class MayoristaController {
     }
 
     //Actualizar informacion de usuario (mayorista)
-    @Transactional
+    /*@Transactional
     @PutMapping("/mayorista/{id}")
     public ResponseEntity<Mayorista> updateMayorista(@PathVariable("id") Long id, @RequestBody Mayorista mayorista) {
         Mayorista mayoristaUpdate = mayoristaRepository.findById(id)
@@ -73,7 +73,7 @@ public class MayoristaController {
 
         return new ResponseEntity<Mayorista>(mayoristaRepository.save(mayoristaUpdate),
                 HttpStatus.OK);
-    }
+    }*/
 
     @Transactional
     @PostMapping("/mayorista")

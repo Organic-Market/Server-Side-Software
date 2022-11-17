@@ -2,7 +2,6 @@ package com.organicmarket.market.controller;
 
 import com.organicmarket.market.Util.ProductoExcelExporter;
 import com.organicmarket.market.Util.Util;
-import com.organicmarket.market.entities.Agricultor;
 import com.organicmarket.market.entities.CategoriaProducto;
 import com.organicmarket.market.entities.Producto;
 import com.organicmarket.market.exception.ResourceNotFoundException;
@@ -74,7 +73,7 @@ public class ProductoController {
                                         @RequestParam("name") String name,
                                         @RequestParam("unit_price") int unit_price,
                                         @RequestParam("cantidad") int stock,
-                                        @RequestParam("categoryID") Long categoryID )throws IOException{
+                                        @RequestParam("categoryId") Long categoryID )throws IOException{
 
         Producto product = new Producto();
         product.setName(name);
@@ -148,7 +147,8 @@ public class ProductoController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/products/filter/{name}")
+
+    /*@GetMapping("/products/filter/{name}")
     public ResponseEntity<List<Producto>> searchByName(@PathVariable String name){
         List<Producto> products=new ArrayList<>();
         List<Producto> productsAux=new ArrayList<>();
@@ -163,6 +163,5 @@ public class ProductoController {
             });
         }
         return new ResponseEntity<List<Producto>>(products, HttpStatus.OK);
-    }
-
+    }*/
 }

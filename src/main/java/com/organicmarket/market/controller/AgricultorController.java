@@ -35,12 +35,6 @@ public class AgricultorController {
         return new ResponseEntity<List<Agricultor>>(agricultor, HttpStatus.OK);
     }
 
-    @GetMapping("/agricultor/{username}")
-    public ResponseEntity<Agricultor> searchAgricultorByUsername(@PathVariable("username") String username){
-        Agricultor agricultor=agricultorRepository.findByUsername(username);
-        return new ResponseEntity<>(agricultor, HttpStatus.OK);
-    }
-
     @Transactional
     @PostMapping("/agricultor")
     public ResponseEntity<Agricultor> saveAgricultor(@RequestBody Agricultor agricultor) {
@@ -58,7 +52,7 @@ public class AgricultorController {
     }
 
     //Actualizar informacion de usuario (agricultor)
-    @Transactional
+    /*@Transactional
     @PutMapping("/agricultor/{id}")
     public ResponseEntity<Agricultor> updateAgricultor(@PathVariable("id") Long id, @RequestBody Agricultor agricultor) {
         Agricultor agricultorUpdate = agricultorRepository.findById(id)
@@ -72,7 +66,7 @@ public class AgricultorController {
 
         return new ResponseEntity<Agricultor>(agricultorRepository.save(agricultorUpdate),
                 HttpStatus.OK);
-    }
+    }*/
 
     @PostMapping("/agricultor/signin")
     public ResponseEntity<LoginResponseDTO> signInAgricultor(@RequestBody LoginRequestDTO request) {
