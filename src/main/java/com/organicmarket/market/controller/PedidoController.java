@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +23,7 @@ public class PedidoController {
     @Autowired
     private PedidoRepository pedidoRepository;
 
+    @Transactional(readOnly = true)
     @GetMapping("/pedido")
     public ResponseEntity<List<Pedido>> serachPedidos() {
         List<Pedido> pedido = pedidoRepository.findAll();
@@ -36,6 +37,7 @@ public class PedidoController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/pedido/search/date")
     public ResponseEntity<List<Pedido>> searchByDate(@RequestParam(value = "date1") String date1, @RequestParam(value = "date2") String date2){
         List<Pedido> pedidos =pedidoRepository.searchByDate(
@@ -43,6 +45,7 @@ public class PedidoController {
         return new ResponseEntity<>(pedidos, HttpStatus.OK);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/pedido/search/others")
     public ResponseEntity<List<Pedido>> searchByOthers(@RequestParam(value = "username") String username, @RequestParam(value = "fullname") String fullName){
         List<Pedido> pedidos = pedidoRepository.search(username,fullName);
@@ -58,6 +61,7 @@ public class PedidoController {
         return new ResponseEntity<Pedido>(newPedido,HttpStatus.CREATED);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/pedidos/callProcedure")
     public ResponseEntity<List<PedidoProcDTO>> callProcOrFunction(){
         List<PedidoProcDTO> pedidos = new ArrayList<>();

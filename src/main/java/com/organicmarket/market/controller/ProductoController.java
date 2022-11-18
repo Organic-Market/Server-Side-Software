@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,7 @@ public class ProductoController {
     @Autowired
     private AgricultorRepository agricultorRepository;
 
+    @Transactional(readOnly = true)
     @GetMapping("/products")
     public ResponseEntity<List<Producto>> search() {
         List<Producto> products=new ArrayList<>();
@@ -56,6 +57,7 @@ public class ProductoController {
 
 
     //Obtener productos por ID
+    @Transactional(readOnly = true)
     @GetMapping("/products/{id}")
     public ResponseEntity<Producto> searchProductById(@PathVariable("id") Long id) {
         Producto productos = productoRepository.findById(id)
@@ -119,6 +121,7 @@ public class ProductoController {
         excelExporter.export(response);
     }
 
+    @Transactional
     @PutMapping("/products/{id}")
     public ResponseEntity<Producto> updateProduct(@PathVariable("id") Long id, @RequestBody Producto producto) {
         Producto productosUpdate = productoRepository.findById(id)
@@ -131,6 +134,7 @@ public class ProductoController {
                 HttpStatus.OK);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/products/agricultor/{id}")
     public ResponseEntity<List<Producto>> findByAllProductsAgricultorIdSQL(@PathVariable("id") Long id){
         List<Producto> products = productoRepository.findByAllProductsAgricultorIdSQL(id);

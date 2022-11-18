@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,6 +22,7 @@ public class CategoriaProductoController {
     @Autowired
     private CategoriaProductoRepository categoriaProductoRepository;
 
+    @Transactional(readOnly = true)
     @GetMapping("/categoria")
     public ResponseEntity<List<CategoriaProducto>> searchCategorias(){
         List<CategoriaProducto> categoria = categoriaProductoRepository.findAll();
@@ -29,6 +30,7 @@ public class CategoriaProductoController {
         return new ResponseEntity<List<CategoriaProducto>>(categoria, HttpStatus.OK);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/categoria/{id}")
     public ResponseEntity<CategoriaProducto> searchCategoriesById(@PathVariable Long id) {
         CategoriaProducto categoriaProducto= categoriaProductoRepository.findById(id)

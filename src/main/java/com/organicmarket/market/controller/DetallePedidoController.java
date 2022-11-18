@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,12 +16,14 @@ public class DetallePedidoController {
     @Autowired
     private DetallePedidoRepository detallePedidoRepository;
 
+    @Transactional(readOnly = true)
     @GetMapping("/detalle_pedido")
     public ResponseEntity<List<DetallePedido>> searchDetallePedido(){
         List<DetallePedido> detallePedido = detallePedidoRepository.findAll();
         return new ResponseEntity<List<DetallePedido>>(detallePedido, HttpStatus.OK);
     }
 
+    @Transactional
     @PostMapping("/detalle_pedido")
     public ResponseEntity<DetallePedido> saveDetallePedido(@RequestBody DetallePedido detalle_pedido){
         DetallePedido newdetallePedido =

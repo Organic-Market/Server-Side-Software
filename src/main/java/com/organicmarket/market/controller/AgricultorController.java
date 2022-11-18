@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200/")
@@ -29,6 +29,7 @@ public class AgricultorController {
         this.agricultorConverter = agricultorConverter;
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/agricultor")
     public ResponseEntity<List<Agricultor>> searchAgricultores(){
         List<Agricultor> agricultor=agricultorRepository.findAll();
@@ -68,6 +69,7 @@ public class AgricultorController {
                 HttpStatus.OK);
     }*/
 
+    @Transactional(readOnly = true)
     @PostMapping("/agricultor/signin")
     public ResponseEntity<LoginResponseDTO> signInAgricultor(@RequestBody LoginRequestDTO request) {
         Agricultor agricultorSignin=agricultorRepository

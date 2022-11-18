@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200/")
@@ -28,6 +28,7 @@ public class MayoristaController {
         this.mayoristaConverter = mayoristaConverter;
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/mayorista")
     public ResponseEntity<List<Mayorista>> searchAllMayorista(){
         List<Mayorista> mayoristas = mayoristaRepository.findAll();
@@ -48,6 +49,7 @@ public class MayoristaController {
         return new ResponseEntity<>(mayorista, HttpStatus.OK);
     }*/
 
+    @Transactional(readOnly = true)
     @GetMapping("/mayorista/agricultor/{id}")
     public ResponseEntity<List<Mayorista>> findByAllCompradoresAgricultorIdSQL(@PathVariable("id") Long id){
         List<Mayorista> mayoristas = mayoristaRepository.findByAllCompradoresAgricultorIdSQL(id);
@@ -91,6 +93,7 @@ public class MayoristaController {
         return new ResponseEntity<Mayorista>(newMayorista, HttpStatus.CREATED);
     }
 
+    @Transactional(readOnly = true)
     @PostMapping("/mayorista/signin")
     public ResponseEntity<LoginResponseDTO> signInMayorista(@RequestBody LoginRequestDTO request) {
         Mayorista mayoristaSignin=mayoristaRepository
