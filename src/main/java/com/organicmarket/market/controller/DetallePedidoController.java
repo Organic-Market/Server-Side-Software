@@ -29,8 +29,6 @@ public class DetallePedidoController {
         DetallePedido newdetallePedido =
                 detallePedidoRepository.save(
                         new DetallePedido(detalle_pedido.getQuantity(),
-                                detalle_pedido.getPrice(),
-                                detalle_pedido.getDiscount(),
                                 detalle_pedido.getPedido(),
                                 detalle_pedido.getProducto())
                 );
