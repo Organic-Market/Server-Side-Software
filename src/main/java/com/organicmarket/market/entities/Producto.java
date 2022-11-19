@@ -26,9 +26,9 @@ public class Producto {
     @Column( name ="picture")
     private byte[] picture;
 
-    /*@OneToMany(mappedBy = "producto",
+    @OneToMany(mappedBy = "producto",
             cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<DetallePedido> detallePedidos;*/
+    private List<DetallePedido> detallePedidos;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnoreProperties( {"hibernateLazyInitializer", "handler"})

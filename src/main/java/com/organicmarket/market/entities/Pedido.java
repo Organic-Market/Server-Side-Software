@@ -1,16 +1,18 @@
 package com.organicmarket.market.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
@@ -22,6 +24,7 @@ public class Pedido {
     private LocalDateTime date;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "mayorista_id", nullable = false, foreignKey = @ForeignKey(name = "FK_PEDIDO_MAYORISTA"))
     private Mayorista mayorista;
 
@@ -29,44 +32,5 @@ public class Pedido {
             cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<DetallePedido> detallePedidos;
 
-    public Pedido() {
-    }
 
-    public Pedido(LocalDateTime date, Mayorista mayorista) {
-        this.date = date;
-        this.mayorista = mayorista;
-    }
-
-    /*public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public Mayorista getMayorista() {
-        return mayorista;
-    }
-
-
-    public void setDetallePedidos(List<DetallePedido> pedidos) {
-        this.detallePedidos = pedidos;
-    }
-
-    public void addDetallePedido(DetallePedido detallePedido){
-        this.detallePedidos.add(detallePedido);
-    }
-
-    /*@Override
-    public String toString() {
-        return "Pedido{" +
-                "id=" + id +
-                ", date=" + date +
-                ", mayorista=" + mayorista +
-                '}';*/
 }
