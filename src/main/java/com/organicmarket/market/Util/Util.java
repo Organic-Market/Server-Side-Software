@@ -23,7 +23,6 @@ public class Util {
             outputStream.close();
         } catch (IOException e) {
         }
-        //System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
 
         return outputStream.toByteArray();
     }

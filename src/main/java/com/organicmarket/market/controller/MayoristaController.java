@@ -35,20 +35,6 @@ public class MayoristaController {
 
         return new ResponseEntity<List<Mayorista>>(mayoristas, HttpStatus.OK);
     }
-    /*@GetMapping("/mayorista/{id}")
-    public ResponseEntity<Mayorista> searchMayoristaById(@PathVariable("id") Long id) {
-        Mayorista mayoristas = mayoristaRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Not found Mayorista with id="+id));
-
-        return new ResponseEntity<Mayorista>(mayoristas,HttpStatus.OK);
-    }
-
-    @GetMapping("/mayorista/{username}")
-    public ResponseEntity<Mayorista> searchMayoristaByUsername(@PathVariable("username") String username){
-        Mayorista mayorista=mayoristaRepository.findByUsername(username);
-        return new ResponseEntity<>(mayorista, HttpStatus.OK);
-    }*/
-
     @Transactional(readOnly = true)
     @GetMapping("/mayorista/agricultor/{id}")
     public ResponseEntity<List<Mayorista>> findByAllCompradoresAgricultorIdSQL(@PathVariable("id") Long id){
@@ -58,24 +44,6 @@ public class MayoristaController {
         }
         return new ResponseEntity<>(mayoristas, HttpStatus.OK);
     }
-
-    //Actualizar informacion de usuario (mayorista)
-    /*@Transactional
-    @PutMapping("/mayorista/{id}")
-    public ResponseEntity<Mayorista> updateMayorista(@PathVariable("id") Long id, @RequestBody Mayorista mayorista) {
-        Mayorista mayoristaUpdate = mayoristaRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
-
-        mayoristaUpdate.setName(mayorista.getName());
-        mayoristaUpdate.setLastname(mayorista.getLastname());
-        mayoristaUpdate.setAddress(mayorista.getAddress());
-        mayoristaUpdate.setUsername(mayorista.getUsername());
-        mayoristaUpdate.setPassword(mayorista.getPassword());
-        mayoristaUpdate.setEmail(mayorista.getEmail());
-
-        return new ResponseEntity<Mayorista>(mayoristaRepository.save(mayoristaUpdate),
-                HttpStatus.OK);
-    }*/
 
     @Transactional
     @PostMapping("/mayorista")

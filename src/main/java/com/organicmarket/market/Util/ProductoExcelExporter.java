@@ -43,7 +43,6 @@ public class ProductoExcelExporter {
         createCell(row, 1, "Nombre", style);
         createCell(row, 2, "Precio", style);
         createCell(row, 3, "Cantidad", style);
-        //createCell(row, 4, "Agricultor", style);
         createCell(row, 4, "Categoría", style);
 
     }
@@ -65,7 +64,6 @@ public class ProductoExcelExporter {
 
     }
 
-
     private void writeDataLines() {
 
         int rowCount = 1;
@@ -82,12 +80,10 @@ public class ProductoExcelExporter {
             createCell(row, columnCount++, result.getName(), style);
             createCell(row, columnCount++, result.getUnit_price(), style);
             createCell(row, columnCount++, result.getStock(), style);
-            //createCell(row, columnCount++, result.getAgricultor().getName(), style);
             createCell(row, columnCount++, result.getCategoriaProducto().getName(), style);
 
         }
     }
-
 
     public void export(HttpServletResponse response) throws IOException {
 
@@ -99,7 +95,6 @@ public class ProductoExcelExporter {
         workbook.close();
 
         servletOutput.close();
-
 
     }
 

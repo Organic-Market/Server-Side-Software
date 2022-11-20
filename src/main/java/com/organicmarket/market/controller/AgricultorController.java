@@ -25,14 +25,14 @@ public class AgricultorController {
 
     private final AgricultorConverter agricultorConverter;
 
-    public AgricultorController(AgricultorConverter agricultorConverter){
+    public AgricultorController(AgricultorConverter agricultorConverter) {
         this.agricultorConverter = agricultorConverter;
     }
 
     @Transactional(readOnly = true)
     @GetMapping("/agricultor")
-    public ResponseEntity<List<Agricultor>> searchAgricultores(){
-        List<Agricultor> agricultor=agricultorRepository.findAll();
+    public ResponseEntity<List<Agricultor>> searchAgricultores() {
+        List<Agricultor> agricultor = agricultorRepository.findAll();
         return new ResponseEntity<List<Agricultor>>(agricultor, HttpStatus.OK);
     }
 
@@ -40,7 +40,7 @@ public class AgricultorController {
     @PostMapping("/agricultor")
     public ResponseEntity<Agricultor> saveAgricultor(@RequestBody Agricultor agricultor) {
 
-        Agricultor newAgricultor=
+        Agricultor newAgricultor =
                 agricultorRepository.save(
                         new Agricultor(agricultor.getName(),
                                 agricultor.getLastname(),
@@ -51,23 +51,6 @@ public class AgricultorController {
                 );
         return new ResponseEntity<Agricultor>(newAgricultor, HttpStatus.CREATED);
     }
-
-    //Actualizar informacion de usuario (agricultor)
-    /*@Transactional
-    @PutMapping("/agricultor/{id}")
-    public ResponseEntity<Agricultor> updateAgricultor(@PathVariable("id") Long id, @RequestBody Agricultor agricultor) {
-        Agricultor agricultorUpdate = agricultorRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Not found products with id="+id));
-        agricultorUpdate.setName(agricultor.getName());
-        agricultorUpdate.setLastname(agricultor.getLastname());
-        agricultorUpdate.setAddress(agricultor.getAddress());
-        agricultorUpdate.setUsername(agricultor.getUsername());
-        agricultorUpdate.setPassword(agricultor.getPassword());
-        agricultorUpdate.setEmail(agricultor.getEmail());
-
-        return new ResponseEntity<Agricultor>(agricultorRepository.save(agricultorUpdate),
-                HttpStatus.OK);
-    }*/
 
     @Transactional(readOnly = true)
     @PostMapping("/agricultor/signin")

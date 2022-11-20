@@ -151,21 +151,4 @@ public class ProductoController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
-    /*@GetMapping("/products/filter/{name}")
-    public ResponseEntity<List<Producto>> searchByName(@PathVariable String name){
-        List<Producto> products=new ArrayList<>();
-        List<Producto> productsAux=new ArrayList<>();
-
-        productsAux=productoRepository.findByNameContainingIgnoreCase(name);
-
-        if(productsAux.size()>0){
-            productsAux.stream().forEach((p)->{
-                byte[] imageDescompressed = Util.decompressZLib(p.getPicture());
-                p.setPicture(imageDescompressed);
-                products.add(p);
-            });
-        }
-        return new ResponseEntity<List<Producto>>(products, HttpStatus.OK);
-    }*/
 }
